@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta name="description" content="Top javascript interview questions." />
+    <meta
+      name="description"
+      content="Currying in javascript is a concept to transform multi parameter funtion to single parameter function..."
+    />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-twilight.min.css"
@@ -262,7 +265,7 @@
           <li class="item"><a href="#">JavaScript</a></li>
           <li class="item"><a href="#">About</a></li>
           <li class="item">
-            <a tabindex="0" href="/javascript-interview-questions.html">Interview</a>
+            <a tabindex="0">Interview</a>
           </li>
           <li class="toggle" onclick="toggleMenu()">
             <a href="#">
@@ -393,41 +396,91 @@
         <h2>Topic Links</h2>
       </aside>
       <article class="main-contianer">
+        <div style="border: 1px solid; border-radius: 10px;">
+          <div style="text-align: center;">Table of Content</div>
+          <div>
+            <ul>
+              <li><a href="#intro">Introduction</a></li>
+              <li><a href="#example">Example</a></li>
+            </ul>
+          </div>
+        </div>
+        <h3>Currying</h3>
+        <div id="intro">
+          <p class="quest">
+            What is Currying?
+          </p>
 
-        <h3>About JavaScript</h3>
-        <p>
-          JavaScript is a lightweight, interpreted programming language. It is
-          designed for creating network-centric applications. It is
-          complimentary to and integrated with Java. JavaScript is very easy to
-          implement because it is integrated with HTML. It is open and
-          cross-platform. JavaScript Can Change HTML Content One of many
-          JavaScript HTML methods is getElementById().
-        </p>
+          <p>
+            Currying in javascript is a concept to transform multi parameter
+            funtion to sequence of single parameter functions. It's used not
+            only in JavaScript, but in other languages as well.
+          </p>
+          <p>
+            Currying translates a function from callable as f(a, b, c) into
+            callable as f(a)(b)(c).
+          </p>
+        </div>
+        <br />
+        <div id="example">
+          <p class="quest">
+            Example
+          </p>
 
-        <p>
-          JavaScript runs on the client side of the web, which can be used to
-          design / program how the web pages behave on the occurrence of an
-          event. JavaScript is an easy to learn and also powerful scripting
-          language, widely used for controlling web page behavior.
-        </p>
+          <p>
+            Following is an example for currying 3 parametered
+            <b>sum</b> function
+          </p>
 
-        <p>
-          JavaScript can function as both a procedural and an object oriented
-          language. Objects are created programmatically in JavaScript, by
-          attaching methods and properties to otherwise empty objects at run
-          time, as opposed to the syntactic class definitions common in compiled
-          languages like C++ and Java. Once an object has been constructed it
-          can be used as a blueprint (or prototype) for creating similar
-          objects.
-        </p>
+          <pre><code class="language-javascript">function curry(f) { // curry(f) does the currying transform
+  return function(a) {
+    return function(b) {
+      return function(c) {
+        return f(a, b, c);
+      };
+    };
+  };
+}
 
-        <p>
-          Another common application for JavaScript is as a (Web) server side
-          scripting language. A JavaScript web server would expose host objects
-          representing a HTTP request and response objects, which could then be
-          manipulated by a JavaScript program to dynamically generate web pages.
-          Node.js is a popular example of this.
-        </p>
+// Following is a funtion with 3 parameter
+function sum(a, b, c) {
+  return a + b + c;
+}
+
+let curriedSum = curry(sum); // returns a single argument funtion
+
+alert(curriedSum(1)(2)(3)); // 6</code></pre>
+        </div>
+        <div id="real">
+          <p class="quest">
+            Real world Example
+          </p>
+
+          <p>
+            Following is an example for currying 2 parametered
+            <b>tax</b> calculation function. As different country have different
+            taxes. Currying can be used to keep tax fixed based on country. For
+            Instance: India tax = 30% US tax = 10%
+          </p>
+          <pre><code class="language-javascript">function curry(f) { // curry(f) does the currying transform
+  return function(a) {
+    return function(b) {
+      return f(a, b);
+    };
+  };
+}
+
+// Following is a funtion with 2 parameter
+function calculateTax(tax, income) {
+  return income * tax / 100;
+}
+
+let curriedTax = curry(calculateTax); // returns a single argument funtion
+let indiaTax = curriedTax(30); // returns a funtion to take 'income' parameter
+let usTax = curriedTax(10); // returns a funtion to take 'income' parameter
+alert(indiaTax(1000)); // 300
+alert(usTax(1000)); // 100</code></pre>
+        </div>
       </article>
     </main>
     <script async src="/src/loadhtml.js"></script>
