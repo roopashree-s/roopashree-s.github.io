@@ -262,7 +262,7 @@
           <li class="item"><a href="#">JavaScript</a></li>
           <li class="item"><a href="#">About</a></li>
           <li class="item">
-            <a tabindex="0" href="/javascript-interview-questions.html">Interview</a>
+            <a tabindex="0">Interview</a>
           </li>
           <li class="toggle" onclick="toggleMenu()">
             <a href="#">
@@ -393,41 +393,101 @@
         <h2>Topic Links</h2>
       </aside>
       <article class="main-contianer">
+        <div style="border: 1px solid; border-radius: 10px;">
+          <div style="text-align: center;">Table of Content</div>
+          <div>
+            <ul>
+              <li><a href="#private">Private variable and method</a></li>
+              <li><a href="#performance">Performance</a></li>
+            </ul>
+          </div>
+        </div>
+        <h3>Closure</h3>
+        <div>
+          <p class="quest">
+            What is Closures?
+          </p>
 
-        <h3>About JavaScript</h3>
-        <p>
-          JavaScript is a lightweight, interpreted programming language. It is
-          designed for creating network-centric applications. It is
-          complimentary to and integrated with Java. JavaScript is very easy to
-          implement because it is integrated with HTML. It is open and
-          cross-platform. JavaScript Can Change HTML Content One of many
-          JavaScript HTML methods is getElementById().
-        </p>
+          <p>
+            Closures is a function with access to parent scope even after the
+            parent function is executed. It is a way of creating private
+            variable or function.
+          </p>
+        </div>
+        <br />
+        <div id="private">
+          <p class="quest">
+            Private variable
+          </p>
 
-        <p>
-          JavaScript runs on the client side of the web, which can be used to
-          design / program how the web pages behave on the occurrence of an
-          event. JavaScript is an easy to learn and also powerful scripting
-          language, widely used for controlling web page behavior.
-        </p>
+          <p>
+            Following is an example for creating private variable. Here name is
+            private variable which can be accessed only in innerFunc even after
+            mainFunction is executed
+          </p>
 
-        <p>
-          JavaScript can function as both a procedural and an object oriented
-          language. Objects are created programmatically in JavaScript, by
-          attaching methods and properties to otherwise empty objects at run
-          time, as opposed to the syntactic class definitions common in compiled
-          languages like C++ and Java. Once an object has been constructed it
-          can be used as a blueprint (or prototype) for creating similar
-          objects.
-        </p>
+          <pre><code class="language-css">p { color: red }</code></pre>
 
-        <p>
-          Another common application for JavaScript is as a (Web) server side
-          scripting language. A JavaScript web server would expose host objects
-          representing a HTTP request and response objects, which could then be
-          manipulated by a JavaScript program to dynamically generate web pages.
-          Node.js is a popular example of this.
-        </p>
+          <pre><code class="language-javascript">function mainFunction() {
+  var name = 'yahoo'; //outer function scope
+  function innerFunc() { // Closure function which has access to name variable
+    alert(name);
+  }
+  return innerFunc;  // returns function defination reference
+}
+
+var myFunc = mainFunction();  // now myFunc has displayName function defination reference
+myFunc();  // innerFunc function called and alert box displays name which is outer variable for innerFunc</code></pre>
+        </div>
+
+        <div id="performance">
+          <p class="quest">
+            Performance issue
+          </p>
+          <p>
+            It is not necessary to create functions within other functions if
+            closures are not needed for a particular task, as it will negatively
+            affect script performance both in terms of processing speed and
+            memory consumption.
+          </p>
+          <p>
+            For example, when creating a new object/class, methods should
+            normally be attached to the object's prototype instead of defining
+            into the object constructor. The reason is that whenever the
+            constructor is called, the methods would get reassigned for every
+            object creation.
+          </p>
+          <div>
+            <pre><code class="language-javascript">function newObject(name, message) {
+  this.name = name.toString();
+  this.message = message.toString();
+  this.getName = function() { // here new defination is created for getName for every 'newObject' call or creation
+    return this.name;
+  };
+
+  this.getMessage = function() {
+    return this.message;
+  };
+}</code></pre>
+          </div>
+          <p>The above can be written by using prototype as follows</p>
+          <div>
+            <pre><code class="language-javascript">function newObject(name, message) {
+  this.name = name.toString();
+  this.message = message.toString();
+}
+
+// here new defination is created for getName for only 'newObject' function
+MyObject.prototype.getName = function() { 
+  return this.name;
+};
+
+MyObject.prototype.getMessage = function() {
+  return this.message;
+};
+</code></pre>
+          </div>
+        </div>
       </article>
     </main>
     <script async src="/src/loadhtml.js"></script>
