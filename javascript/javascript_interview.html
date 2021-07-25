@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta name="description" content="What is object in JavaScript" />
+    <meta name="description" content="JavaScript interview questions...." />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-twilight.min.css"
@@ -408,156 +408,180 @@
     <div></div>
 <main>
   <aside id="target-element-desktop" class="desktop-sidebar">
-    <h2>Topic Links</h2>
+    <h1>Desktopj Sidebar</h1>
   </aside>
   <article class="main-contianer">
     <div style="border: 1px solid; border-radius: 10px;">
       <div style="text-align: center;">Table of Content</div>
       <div>
         <ul>
-          <li><a href="#intro">Introduction</a></li>
-          <li><a href="#properties">Properties</a></li>
-          <li><a href="#method">Methods</a></li>
-          <li><a href="#accessor">Accessors</a></li>
-          <li><a href="#constructor">Constructors</a></li>
-          <li><a href="#prototype">Prototype</a></li>
+          <li><a href="#prerequisitesnbsp">Questions&nbsp;</a></li>
         </ul>
       </div>
     </div>
-    <h3>Object</h3>
-    <div id="intro">
-      <p>
-        Object is a non-primitive data type in javascript. It is a
-        collection of Properties. A property is an association between key
-        and value. Property's value can also be a function in this case,
-        property is called as method.
-      </p>
-    </div>
-    <br />
-    <div id="properties">
+    <h3>Javascript Interview Questions</h3>
+    <div>
       <p class="quest">
-        Properties
+        Q1.What is JavaScript?
       </p>
-
       <p>
-        Properties of an object define characteristic of the object. We can
-        say that It is a variable attached to an object. Following are ways
-        we can access property value.
+      A.JavaScript is a scripting language.It is widely used for client-side validation. The JavaScript Interpretor is responsible for translating the JavaScript code to the web browser.
       </p>
-      <ol>
-        <li>by dot operator. eg: objectName.propertyName</li>
-        <li>by bracket notation. eg: objectName['propertyName']</li>
-      </ol>
-
-      <pre><code class="language-javascript">let obj = {
-a: 'text'
-};
-
-// by dot operator
-let dotOperator = obj.a; // dotOperator will get value 'text' assigned
-
-// by bracket notation
-let bracketWay = obj['a']; // bracketWay will get value 'text' assigned
-</code></pre>
-    </div>
-    <div id="method">
       <p class="quest">
-        Method
+        Q2.What are the different data types in JavaScript?
       </p>
-
       <p>
-        A method is a property with a function definition. They are actions
-        that performs on an object.
+      A.Data types in JavaScript are:
+      <ul>
+        <li> Primitive Data types
+          <ol>
+            <li>String:It represents a series of characters and is written with quotes. A string can be represented using a single or a double quote.</li>
+            <li>Number:It represents a number and can be written with or without decimals.</li>
+            <li>Boolean:It represents a logical entity and can have only two values : true or false. Booleans are generally used for conditional testing.</li>
+            <li>Undefined:When a variable is declared but not assigned, it has the value of undefined and it’s type is also undefined.</li>
+            <li>Null:It represents a non-existent or a invalid value.</li>
+            <li>Symbol:It is a new data type introduced in the ES6 version of javascript. It is used to store an anonymous and unique value.</li>
+            <li>BigInt:This data type is used to store numbers which are above the limitation of the Number data type. It can store large integers and is represented by adding “n” to an integer literal.</li>
+          </ol>
+        </li>
+        <li> Non-Primitive Data types:Primitive data types can store only a single value. To store multiple and complex values, non-primitive data types are used like oblects.</li>
+    </ul>
       </p>
-      <p>Calling Object Methods: <br /></p>
-      <pre><code class="language-javascript">objectName.methodName()</code></pre>
-      Following is an example to display name
-      <pre><code class="language-javascript">var obj = {
-name: 'tom',
-displayName() {
-console.log(this.name) // The this refers to the object that it is in.
-}
-};
-obj.displayName(); // prints 'tom' in console</code></pre>
-    </div>
-
-    <div id="accessor">
       <p class="quest">
-        Accessors (Getters and Setters)
+        Q3. What are variables?
       </p>
-
       <p>
-        Getters and Setters allows to set computed properties. Getters is
-        defined by prefexing 'get' keyword.
+        A. A JavaScript variable is simply a name of storage location. There are two types of variables in JavaScript : local variable and global variable.
       </p>
-      <p>Setters are defined by using 'set' keyword<br /></p>
-      Following is an example to display fullName without using paranthesis.
-      <pre><code class="language-javascript">var obj = {
-fName: 'tom',
-lName: 'tom',
-
-get fullName() {
-console.log(this.fName + ' ' + this.lName) // The this refers to the object that it is in.
-}
-
-set firstName(name) {
-this.fName = name
-}
-
-set lastName(name) {
-this.lName = name.split
-}
-};
-obj.firstName = 'john' // sets property fName to 'john'
-obj.lastName = 'carter' // sets property lName to 'carter'
-console.log(obj.fullName); // prints 'johne carter' in console
-// note the above is called as a property not as method.
-</code></pre>
-    </div>
-    <div id="constructor">
       <p class="quest">
-        Constructor
+        Q4. How do we declare variables?
       </p>
       <p>
-        Constructor is a function that is called during
-        initialization/creation of an object.
+        A. There are 3 ways to declare a variable let,var & const.
       </p>
-      <p>
-        It is good practice to name constructor function with upper-case
-        first letter.
-      </p>
-      Following is an example which creates a single object.
-      <pre><code class="language-javascript">var employee1 = {
-name: 'tom',
-employeeId: 3
-};
-var employee2 = {
-name: 'harry',
-employeeId: 6
-};
-// In the above we can create single object by using {}.
-// if we need to create multiple employee using {} then we had to follow above way.
-</code></pre>
-      This can be avoided by using constructor (blueprint) for creating many
-      objects of same type. For example,
-      <pre><code class="language-javascript">function Employee(employeeId, name) { // constructor function
-this.name = name;
-this.employeeId = employeeId;
-}
-
-var employee1 = new Employee(2, 'tom') // creates an object of Employee type
-var employee2 = new Employee(6, 'harry') // creates an object of Employee type
-</code></pre>
-    </div>
-    <div id="prototype">
       <p class="quest">
-        Prototype
+        Q5. Explain let, var & const?
+      </p>
+      <p>
+        A.let: It allows us to change the value if needed.
+          <pre><code class="language-javascript"">let firstName="John"; // a=John</code></pre>
+          <pre><code class="language-javascript">let firstName="John";
+<br>firstName=Peter; // firstName="Peter"</code></pre>
+        <div>
+          const: It doesn't allow to change the value of a variable.<pre><code class="language-javascript">const firstName="John";
+  <br>firstName="Peter"; // error</code></pre>
+        </div>
+        <div>
+          var:It allows us to change the value if needed.
+        </div>
+      </p>
+        <p class="quest">
+        Q6. What is hoisting?
+      </p>
+      <p>
+        A. Hoisting is a mechanism in JavaScript that moves the declaration of variables and functions at the top. So, in JavaScript we can use variables and functions before declaring them.
+          <pre><code class="language-javascript">Example1: a=5
+      <br>var a // a=5</code></pre>
+          <pre><code class="language-javascript">Example2:var a
+      <br>a=5 // a=5</code></pre>
+      Example1 gives the same result as that of Example2.<br>
+      <b>Note:</b>Only variable get hoisted not its value.
       </p>
 
-      <p>
-        Prototype is a technique by which javascript objects inherit method
-        and property from one another.
+      <p class="quest">
+        Q7. Explain types of operators used in JavaScript?
       </p>
+      <p>Types of operators are:
+        <ol>
+        <li>Arithmetic Operators
+          <ul>
+            <li>Addition: +</li>
+            <li>Subtraction: -</li>
+            <li>Multiplication: *</li>
+            <li>Division: /</li>
+            <li>Modulus(Remainder): %</li>
+            <li>Increment: ++</li>
+            <li>Decrement: --</li>
+          </ul>
+        </li>
+        <li>Comparison Operators
+          <ul>
+            <li>equal to: ==</li>
+            <li>Identical: ===</li>
+            <li>Not equal to: !=</li>
+            <li>Not Identical: !==</li>
+            <li>Greater than: ></li>
+            <li>Greater than or equal to: >=</li>
+            <li>Less than: <</li>
+            <li>Less than or equal to: <=</li>
+          </ul>
+        </li>
+        <li>Bitwise Operators
+          <ul>
+            <li>Bitwise ADD: &</li>
+            <li>Bitwise OR: |</li>
+            <li>Bitwise XOR: ^</li>
+            <li>Bitwise NOT: ~</li>
+            <li>Bitwise left shift: <<</li>
+            <li>Bitwise right shift: >></li>
+            <li>Bitwise right shift with zero: >>></li>
+          </ul>
+        </li>
+        <li>Logical Operators
+          <ul>
+            <li>Logical AND: &&</li>
+            <li>Logical OR: ||</li>
+            <li>Logical NOT: !</li>
+          </ul>
+        </li>
+        <li>Assignment Operators
+          <ul>
+            <li>Assign: =</li>
+            <li>Add & assign: +=</li>
+            <li>Subtract & assign: -=</li>
+            <li>Multiply & assign: *=</li>
+            <li>Divide & assign: /=</li>
+            <li>Modulus & assign: %=</li>
+          </ul>
+        </li>
+        <li>Special Operators
+          <ul>
+            <li>Conditional operators: (?:) returns value based on the condition like if-else</li>
+            <li>Comma operators: (,) allows multiple expressions to be evaluated as single statement.</li>
+            <li>new operators: (new) creates an instance (object)</li>
+            <li>type operators: (typeof) checks the type of object.</li>
+            <li>void operators: (void) it discards the expression's return value.</li>
+          </ul>
+        </li>
+        </ol>
+      </p>
+
+      <p class="quest">
+        Q8. What is function?
+      </p>
+      <p>A JavaScript function is a block of code designed to perform a particular task. A JavaScript function is only executed when "something" invokes it (calls it)
+      </p>
+
+      <p class="quest">
+      Q9. What is Javascript Array?
+    </p>
+    <p>JavaScript arrays are variables that used to store multiple values.It is 0 based index, [0] is the first element of an array.
+    </p>
+
+    <p class="quest">
+      Q10. Explain splice & slice in Javascript?
+    </p>
+    <p>Splice: This method is used to add or remove elements to array. This method modifies the original array.
+      Syntax:
+      array.splice(index, howmany, item1......itemx)
+        index:Indicates from which index adding or removal should start.
+
+      <pre><code class="language-css">p { color: red }</code></pre>
+    </p>
+
+      <pre><code class="language-css">p { color: red }</code></pre>
+
+      <pre><code class="language-javascript">var a = 3; //sdf </code></pre>
     </div>
   </article>
 </main>

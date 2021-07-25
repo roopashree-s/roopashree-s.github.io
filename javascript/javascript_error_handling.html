@@ -1,8 +1,9 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta name="description" content="What is object in JavaScript" />
+    <meta name="description" content="error handling in javascript? if error is thrown in javascript it can be handled by using try..catch block." />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-twilight.min.css"
@@ -416,148 +417,62 @@
       <div>
         <ul>
           <li><a href="#intro">Introduction</a></li>
-          <li><a href="#properties">Properties</a></li>
-          <li><a href="#method">Methods</a></li>
-          <li><a href="#accessor">Accessors</a></li>
-          <li><a href="#constructor">Constructors</a></li>
-          <li><a href="#prototype">Prototype</a></li>
+          <li><a href="#catch">try...catch</a></li>
+          <li><a href="#finally">try...finally </a></li>
         </ul>
       </div>
     </div>
-    <h3>Object</h3>
+    <h3>Error Handling</h3>
     <div id="intro">
       <p>
-        Object is a non-primitive data type in javascript. It is a
-        collection of Properties. A property is an association between key
-        and value. Property's value can also be a function in this case,
-        property is called as method.
+        When executing JavaScript code, different errors can occur. Errors
+        can be coding errors made by the programmer, errors due to wrong
+        syntax, and other dynamic things. try block should be followed by at
+        least one catch-block, or a finally-block, must be present.
       </p>
     </div>
     <br />
-    <div id="properties">
+    <div id="catch">
       <p class="quest">
-        Properties
+        try..catch
       </p>
 
       <p>
-        Properties of an object define characteristic of the object. We can
-        say that It is a variable attached to an object. Following are ways
-        we can access property value.
+        A try block consist of statements block. It should always be in {}.
+        A catch-block contains statements that specify what to do if an
+        exception is thrown in the try-block. If any statement within the
+        try-block (or in a function called from within the try-block) throws
+        an exception, control is immediately shifted to the catch-block. If
+        no exception is thrown in the try-block, the catch-block is skipped.
       </p>
-      <ol>
-        <li>by dot operator. eg: objectName.propertyName</li>
-        <li>by bracket notation. eg: objectName['propertyName']</li>
-      </ol>
 
-      <pre><code class="language-javascript">let obj = {
-a: 'text'
-};
-
-// by dot operator
-let dotOperator = obj.a; // dotOperator will get value 'text' assigned
-
-// by bracket notation
-let bracketWay = obj['a']; // bracketWay will get value 'text' assigned
+      <pre><code class="language-javascript">try {
+throw 'myException'; // generates an exception
+} catch (e) {
+console.log(e) // catches exception and prints 'myException'
+}
 </code></pre>
     </div>
-    <div id="method">
+    <div id="finally">
       <p class="quest">
-        Method
+        finally
       </p>
 
       <p>
-        A method is a property with a function definition. They are actions
-        that performs on an object.
+        The finally-block contains statements to execute after the try-block
+        and catch-block(s) execute, but before the statements following the
+        try...catch...finally-block. Note that the finally-block executes
+        regardless of whether an exception is thrown. Also, if an exception
+        is thrown, the statements in the finally-block execute even if no
+        catch-block handles the exception.
       </p>
-      <p>Calling Object Methods: <br /></p>
-      <pre><code class="language-javascript">objectName.methodName()</code></pre>
-      Following is an example to display name
-      <pre><code class="language-javascript">var obj = {
-name: 'tom',
-displayName() {
-console.log(this.name) // The this refers to the object that it is in.
-}
-};
-obj.displayName(); // prints 'tom' in console</code></pre>
-    </div>
-
-    <div id="accessor">
-      <p class="quest">
-        Accessors (Getters and Setters)
-      </p>
-
-      <p>
-        Getters and Setters allows to set computed properties. Getters is
-        defined by prefexing 'get' keyword.
-      </p>
-      <p>Setters are defined by using 'set' keyword<br /></p>
-      Following is an example to display fullName without using paranthesis.
-      <pre><code class="language-javascript">var obj = {
-fName: 'tom',
-lName: 'tom',
-
-get fullName() {
-console.log(this.fName + ' ' + this.lName) // The this refers to the object that it is in.
-}
-
-set firstName(name) {
-this.fName = name
-}
-
-set lastName(name) {
-this.lName = name.split
-}
-};
-obj.firstName = 'john' // sets property fName to 'john'
-obj.lastName = 'carter' // sets property lName to 'carter'
-console.log(obj.fullName); // prints 'johne carter' in console
-// note the above is called as a property not as method.
-</code></pre>
-    </div>
-    <div id="constructor">
-      <p class="quest">
-        Constructor
-      </p>
-      <p>
-        Constructor is a function that is called during
-        initialization/creation of an object.
-      </p>
-      <p>
-        It is good practice to name constructor function with upper-case
-        first letter.
-      </p>
-      Following is an example which creates a single object.
-      <pre><code class="language-javascript">var employee1 = {
-name: 'tom',
-employeeId: 3
-};
-var employee2 = {
-name: 'harry',
-employeeId: 6
-};
-// In the above we can create single object by using {}.
-// if we need to create multiple employee using {} then we had to follow above way.
-</code></pre>
-      This can be avoided by using constructor (blueprint) for creating many
-      objects of same type. For example,
-      <pre><code class="language-javascript">function Employee(employeeId, name) { // constructor function
-this.name = name;
-this.employeeId = employeeId;
-}
-
-var employee1 = new Employee(2, 'tom') // creates an object of Employee type
-var employee2 = new Employee(6, 'harry') // creates an object of Employee type
-</code></pre>
-    </div>
-    <div id="prototype">
-      <p class="quest">
-        Prototype
-      </p>
-
-      <p>
-        Prototype is a technique by which javascript objects inherit method
-        and property from one another.
-      </p>
+      <p>Following is an example <br /></p>
+      <pre><code class="language-javascript">try {
+        var a = 10; // no error block
+        } finally () {
+          console.log('finally') // this block will run always irrespective of error in try block.
+        }
+      </code></pre>
     </div>
   </article>
 </main>

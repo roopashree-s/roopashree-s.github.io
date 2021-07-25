@@ -1,0 +1,921 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="description" content="Operators in javascript ..." />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-twilight.min.css"
+      integrity="sha512-akb4nfKzpmhujLUyollw5waBPeohuVf0Z5+cL+4Ngc4Db+V8szzx6ZTujguFjpmD076W8LImVIbOblmQ+vZMKA=="
+      crossorigin="anonymous"
+    />
+    <meta charset="utf-8" />
+    <script
+      async
+      custom-element="amp-auto-ads"
+      src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js"
+    ></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web Tutorial</title>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+    <!-- ## Setup -->
+    <!--
+          Import the `amp-sidebar` component.
+        -->
+    <script
+      async
+      custom-element="amp-sidebar"
+      src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"
+    ></script>
+    <meta name="viewport" content="width=device-width" />
+    <style amp-boilerplate>
+      body {
+        -webkit-animation: -amp-start 8s steps(1, end) 0s 1 normal both;
+        -moz-animation: -amp-start 8s steps(1, end) 0s 1 normal both;
+        -ms-animation: -amp-start 8s steps(1, end) 0s 1 normal both;
+        animation: -amp-start 8s steps(1, end) 0s 1 normal both;
+      }
+      .theme-dark {
+        /* background-color: rgba(29, 29, 31, 0.72); */
+        background-color: #32323e;
+        color: #f5f5f7;
+        text-rendering: optimizeLegibility;
+        /* font-size: 16px; */
+        font-size: 1.2em;
+        line-height: 2.2rem;
+        font-family: Arial, Verdana, Tahoma;
+        /* line-height: 20px; */
+      }
+
+      .main-contianer {
+        margin: 4px;
+
+        overflow: auto;
+        height: calc(100vh - 100px);
+      }
+
+      a {
+        color: greenyellow;
+      }
+
+      .quest {
+        color: #ff69f0;
+      }
+
+      p {
+        text-align: justify;
+        margin: 8px;
+      }
+
+      @-webkit-keyframes -amp-start {
+        from {
+          visibility: hidden;
+        }
+
+        to {
+          visibility: visible;
+        }
+      }
+
+      @-moz-keyframes -amp-start {
+        from {
+          visibility: hidden;
+        }
+
+        to {
+          visibility: visible;
+        }
+      }
+
+      @-ms-keyframes -amp-start {
+        from {
+          visibility: hidden;
+        }
+
+        to {
+          visibility: visible;
+        }
+      }
+
+      @-o-keyframes -amp-start {
+        from {
+          visibility: hidden;
+        }
+
+        to {
+          visibility: visible;
+        }
+      }
+
+      @keyframes -amp-start {
+        from {
+          visibility: hidden;
+        }
+
+        to {
+          visibility: visible;
+        }
+      }
+    </style>
+    <noscript>
+      <style amp-boilerplate>
+        body {
+          -webkit-animation: none;
+          -moz-animation: none;
+          -ms-animation: none;
+          animation: none;
+        }
+      </style>
+    </noscript>
+    <style amp-custom>
+      :root {
+        --space-1: 0.5rem;
+        --space-2: 1rem;
+        /* 16px */
+        --space-4: 2rem;
+      }
+
+      .sample-sidebar {
+        width: 250px;
+        padding: var(--space-2);
+      }
+
+      .sample-sidebar > * {
+        margin-top: var(--space-2);
+      }
+
+      .sample-sidebar li,
+      nav[toolbar] li {
+        margin: var(--space-2);
+        margin-left: var(--space-4);
+        list-style: none;
+      }
+
+      amp-sidebar ul,
+      nav[toolbar] ul {
+        display: block;
+        padding-left: 0;
+      }
+
+      .previewOnly {
+        margin: var(--space-2);
+      }
+
+      #sidebar-right nav.amp-sidebar-toolbar-target-shown {
+        display: none;
+      }
+
+      button {
+        margin-left: var(--space-2);
+      }
+
+      header {
+        /* background-color: lightgray; */
+        padding-bottom: var(--space-2);
+      }
+
+      .hamburger {
+        left: 8px;
+        background: inherit;
+        border: none;
+      }
+
+      h1 {
+        padding: var(--space-1);
+        margin: 0;
+        font-size: 2em;
+      }
+
+      .desktop-sidebar {
+        background-color: #32323e;
+        border: 1px solid #545454;
+      }
+
+      @media (min-width: 784px) {
+        .hamburger {
+          display: none;
+        }
+
+        main {
+          display: flex;
+          flex-direction: row;
+        }
+
+        aside {
+          width: 300px;
+        }
+      }
+    </style>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/components/prism-core.min.js"
+      integrity="sha512-xR+IAyN+t9EBIOOJw5m83FTVMDsPd63IhJ3ElP4gmfUFnQlX9+eWGLp3P4t3gIjpo2Z1JzqtW/5cjgn+oru3yQ=="
+      crossorigin="anonymous"
+    ></script>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/plugins/autoloader/prism-autoloader.min.js"
+      integrity="sha512-zc7WDnCM3aom2EziyDIRAtQg1mVXLdILE09Bo+aE1xk0AM2c2cVLfSW9NrxE5tKTX44WBY0Z2HClZ05ur9vB6A=="
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-twilight.min.css"
+      integrity="sha512-akb4nfKzpmhujLUyollw5waBPeohuVf0Z5+cL+4Ngc4Db+V8szzx6ZTujguFjpmD076W8LImVIbOblmQ+vZMKA=="
+      crossorigin="anonymous"
+    />
+    <!-- <script
+      src="https://pagecdn.io/lib/ace/1.4.12/ace.min.js"
+      crossorigin="anonymous"
+      integrity="sha256-T5QdmsCQO5z8tBAXMrCZ4f3RX8wVdiA0Fu17FGnU1vU="
+    ></script> -->
+  </head>
+
+  <body class="theme-dark">
+    <amp-auto-ads
+      type="adsense"
+      data-ad-client="ca-pub-2005682797531342"
+      data-ad-slot="7046626912"
+      data-adtest="on"
+    >
+    </amp-auto-ads>
+    <header>
+      <nav>
+        <ul class="mainmenu" id="mainmenu">
+          <li class="logo">
+            <span
+              class="hamburger"
+              on="tap:sidebar-desktop.toggle"
+              aria-label="Click to open sidebar"
+            >
+              <svg viewBox="0 0 100 80" width="20" height="20" class="svg-bar">
+                <rect width="100" height="20"></rect>
+                <rect y="30" width="100" height="20"></rect>
+                <rect y="60" width="100" height="20"></rect>
+              </svg>
+
+              <!-- <svg viewBox="0 0 100 60" width="40" height="40">
+              <rect width="100" height="20"></rect>
+              <rect y="40" width="100" height="20"></rect>
+            </svg> --></span
+            ><span>Web Tutorial</span>
+          </li>
+          <li class="item"><a href="/javascript/index.html">JavaScript</a></li>
+          <li class="item"><a href="/javascript_interview.html">About</a></li>
+          <li class="item">
+            <a tabindex="0">Interview</a>
+          </li>
+          <li class="toggle" onclick="toggleMenu()">
+            <a href="#">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                class="svg-bar"
+              >
+                <path
+                  d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z"
+                />
+              </svg>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <script>
+        function toggleMenu() {
+          var menu = document.getElementById("mainmenu");
+          if (menu.classList.contains("active")) {
+            menu.classList.remove("active");
+          } else {
+            menu.classList.add("active");
+          }
+        }
+      </script>
+      <style>
+        .svg-bar {
+          fill: white;
+          margin: 0 4px;
+        }
+        /* Basic styling */
+        mainmenu * {
+          box-sizing: border-box;
+          padding: 0;
+          margin: 0;
+        }
+        nav .mainmenu {
+          background: #222;
+          padding: 0 15px;
+        }
+        .mainmenu a {
+          color: white;
+          text-decoration: none;
+        }
+        .mainmenu {
+          list-style-type: none;
+          margin: 0;
+          padding: 0;
+        }
+        .logo {
+          font-size: 20px;
+          padding: 7.5px 10px 7.5px 0;
+        }
+        .item {
+          padding: 10px;
+        }
+        .item:not(.button) a:hover,
+        .item a:hover::after {
+          color: #ccc;
+        }
+        /* Mobile menu */
+        .mainmenu {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          align-items: center;
+        }
+        .mainmenu li a {
+          display: block;
+          /* padding: 15px 5px; */
+        }
+        .toggle {
+          order: 1;
+          font-size: 20px;
+        }
+        .item {
+          order: 3;
+          width: 100%;
+          text-align: center;
+          display: none;
+        }
+        .active .item {
+          display: block;
+        }
+
+        /* Tablet menu */
+        @media all and (min-width: 700px) {
+          .mainmenu {
+            justify-content: center;
+          }
+          .logo {
+            flex: 1;
+          }
+          .toggle {
+            flex: 1;
+            text-align: right;
+            order: 2;
+          }
+        }
+
+        .row {
+          display: flex;
+          text-align: center;
+        }
+        .row.header {
+          font-weight: bold;
+        }
+        .col-2 {
+          width: 16.66%;
+        }
+        .col-4 {
+          width: 30%;
+        }
+        .col-6 {
+          width: 50%;
+        }
+        /* Desktop menu */
+        @media all and (min-width: 960px) {
+          .mainmenu {
+            align-items: flex-start;
+            flex-wrap: nowrap;
+            background: none;
+          }
+          .logo {
+            order: 0;
+          }
+          .item {
+            order: 1;
+            position: relative;
+            display: block;
+            width: auto;
+          }
+          .toggle {
+            display: none;
+          }
+        }
+      </style>
+    </header>
+    <div></div>
+<main>
+  <aside id="target-element-desktop" class="desktop-sidebar">
+    <h2>Topic Links</h2>
+  </aside>
+  <article class="main-contianer">
+    <div style="border: 1px solid; border-radius: 10px;">
+      <div style="text-align: center;">Table of Content</div>
+      <div>
+        <ul>
+          <li><a href="#intro">Introduction</a></li>
+          <li><a href="#assignment_operator">Assignment operator</a></li>
+          <li><a href="#arithmetic_operator">Arithmetic operator</a></li>
+          <li><a href="#unary_operator">Unary operator</a></li>
+          <li><a href="#logical_operator">logical operator</a></li>
+          <li><a href="#comparision_operator">Comparison operator</a></li>
+          <li><a href="#bitwise_operator">Bitwise operator</a></li>
+          <li><a href="#type_operator">type of operator</a></li>
+          <li><a href="#ternary_operator">ternary operator</a></li>
+        </ul>
+      </div>
+    </div>
+    <h3>Javascript Operators</h3>
+    <div>
+      <p class="quest">
+        What is Operators?
+      </p>
+
+      <p>
+        Operators are used to perform operation on single or multiple value
+        (operand) and produce a result. Following are Operators that are
+        available in javascript
+      </p>
+    </div>
+    <br />
+    <div id="assignment_operator">
+      <p class="quest">
+        Assignment operator
+      </p>
+
+      <p>
+        Assignment operator assign value to javascript variables. Following
+        are assignment operators available in javascript
+      </p>
+      <style>
+        .row {
+          display: flex;
+          text-align: center;
+        }
+        .row.header {
+          font-weight: bold;
+        }
+        .col-2 {
+          width: 16.66%;
+        }
+        .col-4 {
+          width: 30%;
+        }
+        .col-6 {
+          width: 50%;
+        }
+      </style>
+      <div class="table">
+        <div class="row header">
+          <div class="col-4">operator</div>
+          <div class="col-4">example</div>
+          <div class="col-4">shorthand for</div>
+        </div>
+        <div class="row">
+          <div class="col-4">=</div>
+          <div class="col-4">a = 9</div>
+          <div class="col-4">non</div>
+        </div>
+        <div class="row">
+          <div class="col-4">+=</div>
+          <div class="col-4">a += 9</div>
+          <div class="col-4">a = a + 9</div>
+        </div>
+        <div class="row">
+          <div class="col-4">-=</div>
+          <div class="col-4">a -= 9</div>
+          <div class="col-4">a = a - 9</div>
+        </div>
+        <div class="row">
+          <div class="col-4">*=</div>
+          <div class="col-4">a *= 9</div>
+          <div class="col-4">a = a * 9</div>
+        </div>
+        <div class="row">
+          <div class="col-4">/=</div>
+          <div class="col-4">a /= 9</div>
+          <div class="col-4">a = a / 9</div>
+        </div>
+        <div class="row">
+          <div class="col-4">%=</div>
+          <div class="col-4">a %= 9</div>
+          <div class="col-4">a = a % 9</div>
+        </div>
+        <div class="row">
+          <div class="col-4"><<=</div>
+          <div class="col-4">a <<= 9</div>
+          <div class="col-4">a = a << 9</div>
+        </div>
+        <div class="row">
+          <div class="col-4">>>>=</div>
+          <div class="col-4">a >>>= 9</div>
+          <div class="col-4">a = a >>> 9</div>
+        </div>
+        <div class="row">
+          <div class="col-4">&=</div>
+          <div class="col-4">a &= 9</div>
+          <div class="col-4">a = a & 9</div>
+        </div>
+        <div class="row">
+          <div class="col-4">^=</div>
+          <div class="col-4">a ^= 9</div>
+          <div class="col-4">a = a ^ 9</div>
+        </div>
+        <div class="row">
+          <div class="col-4">|=</div>
+          <div class="col-4">a |= 9</div>
+          <div class="col-4">a = a | 9</div>
+        </div>
+        <div class="row">
+          <div class="col-4">**=</div>
+          <div class="col-4">a **= 9</div>
+          <div class="col-4">a = a ** 9</div>
+        </div>
+      </div>
+    </div>
+    <div id="arithmetic_operator">
+      <p class="quest">
+        Arithmetic operator
+      </p>
+
+      <p>
+        Arithmetic operator are used to perform arthmetic calculation on
+        numbers(literals or variables). Following are arithmetic operators
+        available in javascript
+      </p>
+      <div class="table">
+        <div class="row header">
+          <div class="col-4">operator</div>
+          <div class="col-4">description</div>
+          <div class="col-4">example</div>
+        </div>
+        <div class="row">
+          <div class="col-4">+</div>
+          <div class="col-4">for addition</div>
+          <div class="col-4">a = 9 + 3</div>
+        </div>
+        <div class="row">
+          <div class="col-4">-</div>
+          <div class="col-4">for subtraction</div>
+          <div class="col-4">a = 10 - 9</div>
+        </div>
+        <div class="row">
+          <div class="col-4">/</div>
+          <div class="col-4">division</div>
+          <div class="col-4">a = a / 9</div>
+        </div>
+        <div class="row">
+          <div class="col-4">*</div>
+          <div class="col-4">multiplication</div>
+          <div class="col-4">a = a * 9</div>
+        </div>
+        <div class="row">
+          <div class="col-4">**</div>
+          <div class="col-4">exponent</div>
+          <div class="col-4">a = 2 ** 9</div>
+        </div>
+        <div class="row">
+          <div class="col-4">%</div>
+          <div class="col-4">Modulus (remainder)</div>
+          <div class="col-4">a = a % 9</div>
+        </div>
+        <div class="row">
+          <div class="col-4">++</div>
+          <div class="col-4">increment</div>
+          <div class="col-4">a = ++a</div>
+        </div>
+        <div class="row">
+          <div class="col-4">--</div>
+          <div class="col-4">decrement</div>
+          <div class="col-4">a = a--</div>
+        </div>
+      </div>
+    </div>
+    <div id="unary_operator">
+      <p class="quest">
+        Unary operator
+      </p>
+      <p>
+        Unary operator are used to perform operation on single operand.
+        Following are unary operators available in javascript
+      </p>
+      <div class="table">
+        <div class="row header">
+          <div class="col-4">operator</div>
+          <div class="col-4">description</div>
+          <div class="col-4">example</div>
+        </div>
+        <div class="row">
+          <div class="col-4">+</div>
+          <div class="col-4">for converting string to number</div>
+          <div class="col-4">a = +a</div>
+        </div>
+        <div class="row">
+          <div class="col-4">-</div>
+          <div class="col-4">for subtraction</div>
+          <div class="col-4">a = -b</div>
+        </div>
+        <div class="row">
+          <div class="col-4">++</div>
+          <div class="col-4">increment</div>
+          <div class="col-4">a = ++a</div>
+        </div>
+        <div class="row">
+          <div class="col-4">--</div>
+          <div class="col-4">decrement</div>
+          <div class="col-4">a = a--</div>
+        </div>
+      </div>
+    </div>
+    <div id="logical_operator">
+      <p class="quest">
+        Logical operator
+      </p>
+      <p>
+        Logical operator are used to perform operation on multi operand.
+        Following are logical operators available in javascript
+      </p>
+      <div class="table">
+        <div class="row header">
+          <div class="col-4">operator</div>
+          <div class="col-4">description</div>
+          <div class="col-4">example</div>
+        </div>
+        <div class="row">
+          <div class="col-4">||</div>
+          <div class="col-4">OR</div>
+          <div class="col-4">a = true || a</div>
+        </div>
+        <div class="row">
+          <div class="col-4">&&</div>
+          <div class="col-4">AND</div>
+          <div class="col-4">a = true && b</div>
+        </div>
+        <div class="row">
+          <div class="col-4">!</div>
+          <div class="col-4">negate</div>
+          <div class="col-4">a = !a</div>
+        </div>
+      </div>
+    </div>
+    <div id="comparision_operator">
+      <p class="quest">
+        Comparison operator
+      </p>
+      <p>
+        Comparison operators are used in logical statements to determine
+        equality or difference between variables or values. Following are
+        Comparison operators available in javascript
+      </p>
+      <div class="table">
+        <div class="row header">
+          <div class="col-2">operator</div>
+          <div class="col-4">description</div>
+          <div class="col-6 row">
+            <div class="col-6">example</div>
+            <div class="col-6">returns</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-2">==</div>
+          <div class="col-4">Equall to</div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">3 == 3</div>
+              <div class="col-6">true</div>
+            </div>
+            <div class="row">
+              <div class="col-6">4 == 3</div>
+              <div class="col-6">false</div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-2">===</div>
+          <div class="col-4">strict equal. checks value and type</div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">3 === '3'</div>
+              <div class="col-6">false</div>
+            </div>
+            <div class="row">
+              <div class="col-6">3 === 3</div>
+              <div class="col-6">true</div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-2">!=</div>
+          <div class="col-4">negate</div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">2 != 3</div>
+              <div class="col-6">true</div>
+            </div>
+            <div class="row">
+              <div class="col-6">3 != 3</div>
+              <div class="col-6">false</div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-2">!==</div>
+          <div class="col-4">strict not equal checks value and type</div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">3 !== 3</div>
+              <div class="col-6">false</div>
+            </div>
+            <div class="row">
+              <div class="col-6">3 !== '3'</div>
+              <div class="col-6">true</div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-2">></div>
+          <div class="col-4">greater than</div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">6 > 3</div>
+              <div class="col-6">true</div>
+            </div>
+            <div class="row">
+              <div class="col-6">1 > 3</div>
+              <div class="col-6">false</div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-2"><</div>
+          <div class="col-4">lesser than</div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">3 < 8</div>
+              <div class="col-6">true</div>
+            </div>
+            <div class="row">
+              <div class="col-6">23 < 3</div>
+              <div class="col-6">false</div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-2"><=</div>
+          <div class="col-4">less than or equal</div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">3 <= 3</div>
+              <div class="col-6">true</div>
+            </div>
+            <div class="row">
+              <div class="col-6">1 <= 3</div>
+              <div class="col-6">false</div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-2">>=</div>
+          <div class="col-4">greater than or equal</div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">3 >= 3</div>
+              <div class="col-6">true</div>
+            </div>
+            <div class="row">
+              <div class="col-6">4 >= 3</div>
+              <div class="col-6">true</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="bitwise_operator">
+        <p class="quest">
+          Bitwise operator
+        </p>
+        <p>
+          Bitwise operator are used to perform operation on multi operand.
+          Following are logical operators available in javascript
+        </p>
+        <div class="table">
+          <div class="row header">
+            <div class="col-4">operator</div>
+            <div class="col-4">description</div>
+            <div class="col-4">example</div>
+          </div>
+          <div class="row">
+            <div class="col-4">|</div>
+            <div class="col-4">OR</div>
+            <div class="col-4">Sets each bit to 1 if both bits are 1</div>
+          </div>
+          <div class="row">
+            <div class="col-4">&</div>
+            <div class="col-4">AND</div>
+            <div class="col-4">
+              Sets each bit to 1 if one of two bits is 1
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-4">^</div>
+            <div class="col-4">XOR</div>
+            <div class="col-4">
+              Sets each bit to 1 if only one of two bits is 1
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-4">~</div>
+            <div class="col-4">NOT</div>
+            <div class="col-4">Inverts all the bits</div>
+          </div>
+          <div class="row">
+            <div class="col-4"><<</div>
+            <div class="col-4">zero fill left shift</div>
+            <div class="col-4">
+              Shifts left by pushing zeros in from the right and let the
+              leftmost bits fall off
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-4">>></div>
+            <div class="col-4">signed right</div>
+            <div class="col-4">
+              Shifts right by pushing copies of the leftmost bit in from the
+              left, and let the rightmost bits fall off
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-4">>>></div>
+            <div class="col-4">Zero fill right shift</div>
+            <div class="col-4">
+              Shifts right by pushing zeros in from the left, and let the
+              rightmost bits fall off
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="type_operator">
+        <p class="quest">
+          typeof operator
+        </p>
+        <p>
+          The typeof operator returns a string indicating the type of the
+          unevaluated operand.
+        </p>
+        <p>Usage: typeof operand</p>
+        <div class="table">
+          <div class="row header">
+            <div class="col-4">example</div>
+            <div class="col-4">description</div>
+            <div class="col-4">returns</div>
+          </div>
+          <div class="row">
+            <div class="col-4">typeof null</div>
+            <div class="col-4">returns type of null</div>
+            <div class="col-4">'object'</div>
+          </div>
+          <div class="row">
+            <div class="col-4">typeof 3</div>
+            <div class="col-4">returns number</div>
+            <div class="col-4">
+              'number'
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-4">typeof '3'</div>
+            <div class="col-4">returns string</div>
+            <div class="col-4">
+              "string"
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-4">typeof {}</div>
+            <div class="col-4">object</div>
+            <div class="col-4">'object'</div>
+          </div>
+        </div>
+      </div>
+      <div id="ternary_operator">
+        <p class="quest">
+          Ternary (conditional) operator
+        </p>
+        <p>
+          Ternary operator shortcut for if else statement. The conditional
+          (ternary) operator is the only JavaScript operator that takes
+          three operands: a condition followed by a question mark (?), then
+          an expression to execute if the condition is truthy followed by a
+          colon (:), and finally the expression to execute if the condition
+          is falsy.
+        </p>
+        <p>Usage: condition ? ifTrueStatement : ifFalseStatement</p>
+      </div>
+    </div>
+  </article>
+</main>
+    <script async src="/src/loadhtml.js"></script>
+
+    <div w3-include-html="/javascriptMenu.html"></div>
+  </body>
+</html>

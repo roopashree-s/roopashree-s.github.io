@@ -1,7 +1,8 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta name="description" content="Top javascript interview questions." />
+    <meta name="description" content="Closure in javascript? Closures is a function with access to parent scope even after the parent function..." />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-twilight.min.css"
@@ -15,7 +16,7 @@
       src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js"
     ></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>amp-sidebar</title>
+    <title>Web Tutorial</title>
     <script async src="https://cdn.ampproject.org/v0.js"></script>
     <!-- ## Setup -->
     <!--
@@ -257,10 +258,10 @@
               <rect width="100" height="20"></rect>
               <rect y="40" width="100" height="20"></rect>
             </svg> --></span
-            ><span>Tutorial hub</span>
+            ><span>Web Tutorial</span>
           </li>
-          <li class="item"><a href="#">JavaScript</a></li>
-          <li class="item"><a href="#">About</a></li>
+          <li class="item"><a href="/javascript/index.html">JavaScript</a></li>
+          <li class="item"><a href="/javascript_interview.html">About</a></li>
           <li class="item">
             <a tabindex="0">Interview</a>
           </li>
@@ -365,6 +366,23 @@
             order: 2;
           }
         }
+
+        .row {
+          display: flex;
+          text-align: center;
+        }
+        .row.header {
+          font-weight: bold;
+        }
+        .col-2 {
+          width: 16.66%;
+        }
+        .col-4 {
+          width: 30%;
+        }
+        .col-6 {
+          width: 50%;
+        }
         /* Desktop menu */
         @media all and (min-width: 960px) {
           .mainmenu {
@@ -388,108 +406,108 @@
       </style>
     </header>
     <div></div>
-    <main>
-      <aside id="target-element-desktop" class="desktop-sidebar">
-        <h2>Topic Links</h2>
-      </aside>
-      <article class="main-contianer">
-        <div style="border: 1px solid; border-radius: 10px;">
-          <div style="text-align: center;">Table of Content</div>
-          <div>
-            <ul>
-              <li><a href="#private">Private variable and method</a></li>
-              <li><a href="#performance">Performance</a></li>
-            </ul>
-          </div>
-        </div>
-        <h3>Closure</h3>
-        <div>
-          <p class="quest">
-            What is Closures?
-          </p>
+<main>
+  <aside id="target-element-desktop" class="desktop-sidebar">
+    <h2>Topic Links</h2>
+  </aside>
+  <article class="main-contianer">
+    <div style="border: 1px solid; border-radius: 10px;">
+      <div style="text-align: center;">Table of Content</div>
+      <div>
+        <ul>
+          <li><a href="#private">Private variable and method</a></li>
+          <li><a href="#performance">Performance</a></li>
+        </ul>
+      </div>
+    </div>
+    <h3>Closure</h3>
+    <div>
+      <p class="quest">
+        What is Closures?
+      </p>
 
-          <p>
-            Closures is a function with access to parent scope even after the
-            parent function is executed. It is a way of creating private
-            variable or function.
-          </p>
-        </div>
-        <br />
-        <div id="private">
-          <p class="quest">
-            Private variable
-          </p>
+      <p>
+        Closures is a function with access to parent scope even after the
+        parent function is executed. It is a way of creating private
+        variable or function.
+      </p>
+    </div>
+    <br />
+    <div id="private">
+      <p class="quest">
+        Private variable
+      </p>
 
-          <p>
-            Following is an example for creating private variable. Here name is
-            private variable which can be accessed only in innerFunc even after
-            mainFunction is executed
-          </p>
+      <p>
+        Following is an example for creating private variable. Here name is
+        private variable which can be accessed only in innerFunc even after
+        mainFunction is executed
+      </p>
 
-          <pre><code class="language-css">p { color: red }</code></pre>
+      <pre><code class="language-css">p { color: red }</code></pre>
 
-          <pre><code class="language-javascript">function mainFunction() {
-  var name = 'yahoo'; //outer function scope
-  function innerFunc() { // Closure function which has access to name variable
-    alert(name);
-  }
-  return innerFunc;  // returns function defination reference
+      <pre><code class="language-javascript">function mainFunction() {
+var name = 'yahoo'; //outer function scope
+function innerFunc() { // Closure function which has access to name variable
+alert(name);
+}
+return innerFunc;  // returns function defination reference
 }
 
 var myFunc = mainFunction();  // now myFunc has displayName function defination reference
 myFunc();  // innerFunc function called and alert box displays name which is outer variable for innerFunc</code></pre>
-        </div>
+    </div>
 
-        <div id="performance">
-          <p class="quest">
-            Performance issue
-          </p>
-          <p>
-            It is not necessary to create functions within other functions if
-            closures are not needed for a particular task, as it will negatively
-            affect script performance both in terms of processing speed and
-            memory consumption.
-          </p>
-          <p>
-            For example, when creating a new object/class, methods should
-            normally be attached to the object's prototype instead of defining
-            into the object constructor. The reason is that whenever the
-            constructor is called, the methods would get reassigned for every
-            object creation.
-          </p>
-          <div>
-            <pre><code class="language-javascript">function newObject(name, message) {
-  this.name = name.toString();
-  this.message = message.toString();
-  this.getName = function() { // here new defination is created for getName for every 'newObject' call or creation
-    return this.name;
-  };
+    <div id="performance">
+      <p class="quest">
+        Performance issue
+      </p>
+      <p>
+        It is not necessary to create functions within other functions if
+        closures are not needed for a particular task, as it will negatively
+        affect script performance both in terms of processing speed and
+        memory consumption.
+      </p>
+      <p>
+        For example, when creating a new object/class, methods should
+        normally be attached to the object's prototype instead of defining
+        into the object constructor. The reason is that whenever the
+        constructor is called, the methods would get reassigned for every
+        object creation.
+      </p>
+      <div>
+        <pre><code class="language-javascript">function newObject(name, message) {
+this.name = name.toString();
+this.message = message.toString();
+this.getName = function() { // here new defination is created for getName for every 'newObject' call or creation
+return this.name;
+};
 
-  this.getMessage = function() {
-    return this.message;
-  };
+this.getMessage = function() {
+return this.message;
+};
 }</code></pre>
-          </div>
-          <p>The above can be written by using prototype as follows</p>
-          <div>
-            <pre><code class="language-javascript">function newObject(name, message) {
-  this.name = name.toString();
-  this.message = message.toString();
+      </div>
+      <p>The above can be written by using prototype as follows</p>
+      <div>
+        <pre><code class="language-javascript">function newObject(name, message) {
+this.name = name.toString();
+this.message = message.toString();
 }
 
 // here new defination is created for getName for only 'newObject' function
-MyObject.prototype.getName = function() { 
-  return this.name;
+MyObject.prototype.getName = function() {
+return this.name;
 };
 
 MyObject.prototype.getMessage = function() {
-  return this.message;
+return this.message;
 };
 </code></pre>
-          </div>
-        </div>
-      </article>
-    </main>
+      </div>
+    </div>
+  </article>
+</main>
     <script async src="/src/loadhtml.js"></script>
 
     <div w3-include-html="/javascriptMenu.html"></div>

@@ -1,7 +1,9 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta name="description" content="Top javascript interview questions." />
+    <meta name="description" content="array in javascript? Arrays is a variable which stores multiple values. They are list like objects." />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-twilight.min.css"
@@ -15,7 +17,7 @@
       src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js"
     ></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>amp-sidebar</title>
+    <title>Web Tutorial</title>
     <script async src="https://cdn.ampproject.org/v0.js"></script>
     <!-- ## Setup -->
     <!--
@@ -257,10 +259,10 @@
               <rect width="100" height="20"></rect>
               <rect y="40" width="100" height="20"></rect>
             </svg> --></span
-            ><span>Tutorial hub</span>
+            ><span>Web Tutorial</span>
           </li>
-          <li class="item"><a href="#">JavaScript</a></li>
-          <li class="item"><a href="#">About</a></li>
+          <li class="item"><a href="/javascript/index.html">JavaScript</a></li>
+          <li class="item"><a href="/javascript_interview.html">About</a></li>
           <li class="item">
             <a tabindex="0">Interview</a>
           </li>
@@ -365,6 +367,23 @@
             order: 2;
           }
         }
+
+        .row {
+          display: flex;
+          text-align: center;
+        }
+        .row.header {
+          font-weight: bold;
+        }
+        .col-2 {
+          width: 16.66%;
+        }
+        .col-4 {
+          width: 30%;
+        }
+        .col-6 {
+          width: 50%;
+        }
         /* Desktop menu */
         @media all and (min-width: 960px) {
           .mainmenu {
@@ -388,256 +407,256 @@
       </style>
     </header>
     <div></div>
-    <main>
-      <aside id="target-element-desktop" class="desktop-sidebar">
-        <h2>Topic Links</h2>
-      </aside>
-      <article class="main-contianer">
-        <div style="border: 1px solid; border-radius: 10px;">
-          <div style="text-align: center;">Table of Content</div>
-          <div>
-            <ul>
-              <li><a href="#array_creation">Creating Arrays</a></li>
-              <li><a href="#access_array">Access an Array</a></li>
-              <li><a href="#add_element">Add item in an Array</a></li>
-              <li><a href="#remove_element">Remove item in an Array</a></li>
-              <li><a href="#array_length">length property</a></li>
-              <li><a href="#array_methods">Other Methods</a></li>
-            </ul>
-          </div>
-        </div>
-        <h3>Arrays</h3>
-        <div>
-          <p class="quest">
-            What is Arrays?
-          </p>
+<main>
+  <aside id="target-element-desktop" class="desktop-sidebar">
+    <h2>Topic Links</h2>
+  </aside>
+  <article class="main-contianer">
+    <div style="border: 1px solid; border-radius: 10px;">
+      <div style="text-align: center;">Table of Content</div>
+      <div>
+        <ul>
+          <li><a href="#array_creation">Creating Arrays</a></li>
+          <li><a href="#access_array">Access an Array</a></li>
+          <li><a href="#add_element">Add item in an Array</a></li>
+          <li><a href="#remove_element">Remove item in an Array</a></li>
+          <li><a href="#array_length">length property</a></li>
+          <li><a href="#array_methods">Other Methods</a></li>
+        </ul>
+      </div>
+    </div>
+    <h3>Arrays</h3>
+    <div>
+      <p class="quest">
+        What is Arrays?
+      </p>
 
-          <p>
-            Arrays is a variable which stores multiple values. They are list
-            like objects.
-          </p>
-        </div>
-        <br />
-        <div id="array_creation">
-          <p class="quest">
-            Creating Arrays
-          </p>
+      <p>
+        Arrays is a variable which stores multiple values. They are list
+        like objects.
+      </p>
+    </div>
+    <br />
+    <div id="array_creation">
+      <p class="quest">
+        Creating Arrays
+      </p>
 
-          <p>
-            Different ways of creating array
-          </p>
+      <p>
+        Different ways of creating array
+      </p>
 
-          <pre><code class="language-javascript">var a = []; // creates an empty array
+      <pre><code class="language-javascript">var a = []; // creates an empty array
 // following creates an array with two elements i.e 'y' and 'w'
-var a = ['w', 'y']; 
+var a = ['w', 'y'];
 
 // create an array with 3 empty elements
-var b = new Array(3);  
+var b = new Array(3);
 
 // create an array with [2, 4]
-var c = new Array(2,4) 
+var c = new Array(2,4)
 </code></pre>
-        </div>
+    </div>
 
-        <div id="access_array">
-          <p class="quest">
-            Access an Array element
-          </p>
-          <p>
-            An element can be accessed using index.
-          </p>
-          <p>
-            For example, if we want to access the 3rd element then by index it
-            will be 2 as index starts from 0.
-          </p>
-          <div>
-            <pre><code class="language-javascript">var a = ['first', 'second', 'third', 'fourth']
+    <div id="access_array">
+      <p class="quest">
+        Access an Array element
+      </p>
+      <p>
+        An element can be accessed using index.
+      </p>
+      <p>
+        For example, if we want to access the 3rd element then by index it
+        will be 2 as index starts from 0.
+      </p>
+      <div>
+        <pre><code class="language-javascript">var a = ['first', 'second', 'third', 'fourth']
 var b = a[2] // b variable will be assigned value 'third' as string
 console.log(a[1]) // a[1] returns value 'second'
 </code></pre>
-          </div>
-        </div>
+      </div>
+    </div>
 
-        <div id="add_element">
-          <p class="quest">
-            Add element to an array
-          </p>
-          <p>
-            An element can be added to an array at starting or at ending.
-          </p>
-          <p>To Add at start we need to use shift Method</p>
-          <p>
-            For example, if we want to add element at start of an array then
-          </p>
-          <div>
-            <pre><code class="language-javascript">var a = ['first', 'second', 'third', 'fourth']
+    <div id="add_element">
+      <p class="quest">
+        Add element to an array
+      </p>
+      <p>
+        An element can be added to an array at starting or at ending.
+      </p>
+      <p>To Add at start we need to use shift Method</p>
+      <p>
+        For example, if we want to add element at start of an array then
+      </p>
+      <div>
+        <pre><code class="language-javascript">var a = ['first', 'second', 'third', 'fourth']
 a.unshift('test') // 'test' will be added at start of array variable a
 console.log(a) // prints value ['test', 'first', 'second', 'third', 'fourth']
 </code></pre>
-          </div>
-          <p>To Add at the end we need to use push Method</p>
-          <p>
-            For example, if we want to add element at the end of an array then
-          </p>
-          <div>
-            <pre><code class="language-javascript">var a = ['first', 'second', 'third', 'fourth']
+      </div>
+      <p>To Add at the end we need to use push Method</p>
+      <p>
+        For example, if we want to add element at the end of an array then
+      </p>
+      <div>
+        <pre><code class="language-javascript">var a = ['first', 'second', 'third', 'fourth']
 a.push('test') // 'test' will be added at end of array variable a
 console.log(a) // prints value ['first', 'second', 'third', 'fourth', 'test']
 </code></pre>
-          </div>
-        </div>
+      </div>
+    </div>
 
-        <div id="remove_element">
-          <p class="quest">
-            Remove element of an array
-          </p>
-          <p>
-            An element can be removed of an array from anywhere.
-          </p>
-          <p>To Remove at start we need to use shift Method</p>
-          <p>
-            For example, if we want to remove element at start of an array then
-          </p>
-          <div>
-            <pre><code class="language-javascript">var a = ['first', 'second', 'third', 'fourth']
+    <div id="remove_element">
+      <p class="quest">
+        Remove element of an array
+      </p>
+      <p>
+        An element can be removed of an array from anywhere.
+      </p>
+      <p>To Remove at start we need to use shift Method</p>
+      <p>
+        For example, if we want to remove element at start of an array then
+      </p>
+      <div>
+        <pre><code class="language-javascript">var a = ['first', 'second', 'third', 'fourth']
 a.shift() // 'first' will be removed from start of array variable a
 console.log(a) // prints value ['second', 'third', 'fourth']
 </code></pre>
-          </div>
-          <p>To Remove at the end we need to use pop Method</p>
-          <p>
-            For example, if we want to remove element at the end of an array
-            then
-          </p>
-          <div>
-            <pre><code class="language-javascript">var a = ['first', 'second', 'third', 'fourth']
+      </div>
+      <p>To Remove at the end we need to use pop Method</p>
+      <p>
+        For example, if we want to remove element at the end of an array
+        then
+      </p>
+      <div>
+        <pre><code class="language-javascript">var a = ['first', 'second', 'third', 'fourth']
 a.pop() // 'fourth' will be removed from end of array variable a
 console.log(a) // prints value ['first', 'second', 'third']
 </code></pre>
-          </div>
+      </div>
 
-          <p>To Remove by using index and length</p>
-          <p>
-            splice(index, removeCount) <br />
-            For example, if we want to remove element at second element of an
-            array then
-          </p>
-          <div>
-            <pre><code class="language-javascript">var a = ['first', 'second', 'third', 'fourth']
+      <p>To Remove by using index and length</p>
+      <p>
+        splice(index, removeCount) <br />
+        For example, if we want to remove element at second element of an
+        array then
+      </p>
+      <div>
+        <pre><code class="language-javascript">var a = ['first', 'second', 'third', 'fourth']
 a.splice(1, 2) // 'second' and 'fourth' will be removed from array variable a
 console.log(a) // prints value ['first', 'fourth', 'third']
 </code></pre>
-          </div>
-        </div>
+      </div>
+    </div>
 
-        <div id="array_length">
-          <p class="quest">
-            Length property
-          </p>
-          <p>
-            Array length can be found by using length property of Array.
-          </p>
-          <p>
-            For example,
-          </p>
-          <div>
-            <pre><code class="language-javascript">var a = ['first', 'second', 'third', 'fourth']
+    <div id="array_length">
+      <p class="quest">
+        Length property
+      </p>
+      <p>
+        Array length can be found by using length property of Array.
+      </p>
+      <p>
+        For example,
+      </p>
+      <div>
+        <pre><code class="language-javascript">var a = ['first', 'second', 'third', 'fourth']
 console.log(a.length) // prints value 4
 
 // if we want to shorten the array then
 a.length = 2 // this will reduce the array length to 2 and removes last two elements of variable a.
 
 </code></pre>
-          </div>
-        </div>
+      </div>
+    </div>
 
-        <div id="array_methods">
-          <p class="quest">
-            Other Methods
-          </p>
-          <h4>
-            Slice:
-          </h4>
-          <p>
-            The slice() method returns a shallow copy of a portion of an array
-            into a new array object. The start and end is passed as parameter to
-            select the portion. The original array will not be modified.
-          </p>
-          <p>
-            Syntax <br />
-            slice() <br />
-            slice(start) <br />
-            slice(start, end)
-          </p>
-          <p>
-            For example,
-          </p>
-          <div>
-            <pre><code class="language-javascript">var a = ['first', 'second', 'third', 'fourth']
-  console.log(a.length) // prints value 4
-  
-  var b = a.slice() // returns new array with all values of a
-  
-  var c = a.slice(1) //as end is omited, extracts through the end of the sequence. returns ['second', 'third', 'fourth']
-  
-  var d = a.slice(1, 3) //returns ['third', 'fourth']
-  
-  // A negative index can be used, indicating an offset from the end of the sequence.
-  var e = a.slice(-2, -1) //returns ['third']
-  
-  </code></pre>
-          </div>
-          <h4>
-            join:
-          </h4>
-          <p>
-            The join() method creates and returns a new string by concatenating
-            all of the elements in an array. The element are separated by commas
-            (default seperator) or a specified separator string. If the array
-            has only one item, then that item will be returned without using the
-            separator.
-          </p>
-          <p>
-            Syntax <br />
-            join() <br />
-            join(separator)
-          </p>
-          <p>
-            For example,
-          </p>
-          <div>
-            <pre><code class="language-javascript">var a = ['how', 'are', 'you']
-    
-    var b = a.join() // returns new 'how,are,you'
-    
-    var c = a.join('-') // returns 'how-are-you'
-    
-    </code></pre>
-          </div>
-          <h4>
-            concat:
-          </h4>
-          <p>
-            The concat() method joins two or more arrays and returns a new
-            array.
-          </p>
-          <p>
-            Syntax <br />
-            array1.concat(array2, array3, ..., arrayX)
-          </p>
-          <p>
-            For example,
-          </p>
-          <div>
-            <pre><code class="language-javascript">var a = ['how', 'are', 'you']
-    
-    var b = a.concat([3,4], [5]) // returns new ['how', 'are', 'you', 3, 4, 5]
-    
-    </code></pre>
-          </div>
-        </div>
-      </article>
-    </main>
+    <div id="array_methods">
+      <p class="quest">
+        Other Methods
+      </p>
+      <h4>
+        Slice:
+      </h4>
+      <p>
+        The slice() method returns a shallow copy of a portion of an array
+        into a new array object. The start and end is passed as parameter to
+        select the portion. The original array will not be modified.
+      </p>
+      <p>
+        Syntax <br />
+        slice() <br />
+        slice(start) <br />
+        slice(start, end)
+      </p>
+      <p>
+        For example,
+      </p>
+      <div>
+        <pre><code class="language-javascript">var a = ['first', 'second', 'third', 'fourth']
+console.log(a.length) // prints value 4
+
+var b = a.slice() // returns new array with all values of a
+
+var c = a.slice(1) //as end is omited, extracts through the end of the sequence. returns ['second', 'third', 'fourth']
+
+var d = a.slice(1, 3) //returns ['third', 'fourth']
+
+// A negative index can be used, indicating an offset from the end of the sequence.
+var e = a.slice(-2, -1) //returns ['third']
+
+</code></pre>
+      </div>
+      <h4>
+        join:
+      </h4>
+      <p>
+        The join() method creates and returns a new string by concatenating
+        all of the elements in an array. The element are separated by commas
+        (default seperator) or a specified separator string. If the array
+        has only one item, then that item will be returned without using the
+        separator.
+      </p>
+      <p>
+        Syntax <br />
+        join() <br />
+        join(separator)
+      </p>
+      <p>
+        For example,
+      </p>
+      <div>
+        <pre><code class="language-javascript">var a = ['how', 'are', 'you']
+
+var b = a.join() // returns new 'how,are,you'
+
+var c = a.join('-') // returns 'how-are-you'
+
+</code></pre>
+      </div>
+      <h4>
+        concat:
+      </h4>
+      <p>
+        The concat() method joins two or more arrays and returns a new
+        array.
+      </p>
+      <p>
+        Syntax <br />
+        array1.concat(array2, array3, ..., arrayX)
+      </p>
+      <p>
+        For example,
+      </p>
+      <div>
+        <pre><code class="language-javascript">var a = ['how', 'are', 'you']
+
+var b = a.concat([3,4], [5]) // returns new ['how', 'are', 'you', 3, 4, 5]
+
+</code></pre>
+      </div>
+    </div>
+  </article>
+</main>
     <script async src="/src/loadhtml.js"></script>
 
     <div w3-include-html="/javascriptMenu.html"></div>
