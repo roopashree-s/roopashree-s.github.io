@@ -1,7 +1,9 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta name="description" content="Top javascript interview questions." />
+    <meta name="description" content="Javascript introduction." />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-twilight.min.css"
@@ -15,7 +17,7 @@
       src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js"
     ></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>amp-sidebar</title>
+    <title>Web Tutorial</title>
     <script async src="https://cdn.ampproject.org/v0.js"></script>
     <!-- ## Setup -->
     <!--
@@ -257,12 +259,12 @@
               <rect width="100" height="20"></rect>
               <rect y="40" width="100" height="20"></rect>
             </svg> --></span
-            ><span>Tutorial hub</span>
+            ><span>Web Tutorial</span>
           </li>
-          <li class="item"><a href="#">JavaScript</a></li>
-          <li class="item"><a href="#">About</a></li>
+          <li class="item"><a href="/javascript/index.html">JavaScript</a></li>
+          <li class="item"><a href="/about.html">About</a></li>
           <li class="item">
-            <a tabindex="0" href="/javascript-interview-questions.html">Interview</a>
+            <a tabindex="0" href="/javascript_interview.html">Interview</a>
           </li>
           <li class="toggle" onclick="toggleMenu()">
             <a href="#">
@@ -365,6 +367,23 @@
             order: 2;
           }
         }
+
+        .row {
+          display: flex;
+          text-align: center;
+        }
+        .row.header {
+          font-weight: bold;
+        }
+        .col-2 {
+          width: 16.66%;
+        }
+        .col-4 {
+          width: 30%;
+        }
+        .col-6 {
+          width: 50%;
+        }
         /* Desktop menu */
         @media all and (min-width: 960px) {
           .mainmenu {
@@ -388,48 +407,50 @@
       </style>
     </header>
     <div></div>
-    <main>
-      <aside id="target-element-desktop" class="desktop-sidebar">
-        <h2>Topic Links</h2>
-      </aside>
-      <article class="main-contianer">
+<main>
+  <aside id="target-element-desktop" class="desktop-sidebar">
+    <h1>Desktopj Sidebar</h1>
+  </aside>
+  <article class="main-contianer">
+    <h3>About JavaScript</h3>
+    <p>
+      JavaScript is a lightweight, interpreted programming language. It is
+      designed for creating network-centric applications. It is
+      complimentary to and integrated with Java. JavaScript is very easy to
+      implement because it is integrated with HTML. It is open and
+      cross-platform. JavaScript Can Change HTML Content One of many
+      JavaScript HTML methods is getElementById().
+    </p>
 
-        <h3>About JavaScript</h3>
-        <p>
-          JavaScript is a lightweight, interpreted programming language. It is
-          designed for creating network-centric applications. It is
-          complimentary to and integrated with Java. JavaScript is very easy to
-          implement because it is integrated with HTML. It is open and
-          cross-platform. JavaScript Can Change HTML Content One of many
-          JavaScript HTML methods is getElementById().
-        </p>
+    <p>
+      JavaScript runs on the client side of the web, which can be used to
+      design / program how the web pages behave on the occurrence of an
+      event. JavaScript is an easy to learn and also powerful scripting
+      language, widely used for controlling web page behavior.
+    </p>
 
-        <p>
-          JavaScript runs on the client side of the web, which can be used to
-          design / program how the web pages behave on the occurrence of an
-          event. JavaScript is an easy to learn and also powerful scripting
-          language, widely used for controlling web page behavior.
-        </p>
+    <p>
+      JavaScript can function as both a procedural and an object oriented
+      language. Objects are created programmatically in JavaScript, by
+      attaching methods and properties to otherwise empty objects at run
+      time, as opposed to the syntactic class definitions common in compiled
+      languages like C++ and Java. Once an object has been constructed it
+      can be used as a blueprint (or prototype) for creating similar
+      objects.
+    </p>
 
-        <p>
-          JavaScript can function as both a procedural and an object oriented
-          language. Objects are created programmatically in JavaScript, by
-          attaching methods and properties to otherwise empty objects at run
-          time, as opposed to the syntactic class definitions common in compiled
-          languages like C++ and Java. Once an object has been constructed it
-          can be used as a blueprint (or prototype) for creating similar
-          objects.
-        </p>
+    <p>
+      Another common application for JavaScript is as a (Web) server side
+      scripting language. A JavaScript web server would expose host objects
+      representing a HTTP request and response objects, which could then be
+      manipulated by a JavaScript program to dynamically generate web pages.
+      Node.js is a popular example of this.
+    </p>
+    <pre><code class="language-css">p { color: red }</code></pre>
 
-        <p>
-          Another common application for JavaScript is as a (Web) server side
-          scripting language. A JavaScript web server would expose host objects
-          representing a HTTP request and response objects, which could then be
-          manipulated by a JavaScript program to dynamically generate web pages.
-          Node.js is a popular example of this.
-        </p>
-      </article>
-    </main>
+    <pre><code class="language-javascript">var a = 3; //sdf </code></pre>
+  </article>
+</main>
     <script async src="/src/loadhtml.js"></script>
 
     <div w3-include-html="/javascriptMenu.html"></div>
