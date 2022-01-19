@@ -1136,13 +1136,19 @@
             a.forEach(function (x) {
               if (x.key == sellObj.key && x.state !== 'S' && (x.usedQty != 0 || x.usedQty > 0) && qty) {
                 console.log(x.usedQty, 'x.usedQty');
-                x.usedQty = x.qty - qty;
+
+                if (x.usedQty) {
+                  x.usedQty -= qty;
+                } else {
+                  x.usedQty = x.qty - qty;
+                }
+
                 qty = 0;
                 console.log(x.usedQty, 'x.usedQty');
 
                 if (x.usedQty < 0) {
                   qty = -x.usedQty;
-                  x.usedQty = x.qty;
+                  x.usedQty = 0;
                   dateDiff = moment__WEBPACK_IMPORTED_MODULE_8___default()(sellObj.dateValue).diff(x.dateValue, 'years', true);
                   console.log(dateDiff, 'dateDiff < 0', moment__WEBPACK_IMPORTED_MODULE_8___default()(sellObj.dateValue).diff(x.dateValue, 'days', true));
                   return false;
@@ -1412,6 +1418,8 @@
         }, {
           key: "updateGroupBy",
           value: function updateGroupBy() {
+            var _this9 = this;
+
             if (this.toggleGroup) {
               this.toggleGroup = false;
               this.rowData = JSON.parse(localStorage.getItem('data'));
@@ -1425,10 +1433,39 @@
               var obj = Object.assign(Object.assign({}, block[key][0]), {
                 rowData: block[key]
               });
+              obj.price = _this9.calcAvg(obj.rowData, obj);
               blockRow.push(obj);
             });
             console.log(blockRow, 'blockRow');
             this.rowData = blockRow;
+          }
+        }, {
+          key: "calcAvg",
+          value: function calcAvg(arr, obj) {
+            var price = 0;
+            var qty = 0;
+            var date = arr[0].date,
+                dateValue = arr[0].dateValue;
+            arr.forEach(function (a) {
+              if (a.name.includes('THOMAS')) {
+                debugger;
+              }
+
+              if (a.state == 'B' && (a.usedQty !== 0 || a.usedQty > 0)) {
+                if (a.dateValue.valueOf() < a.dateValue.valueOf()) {
+                  date = a.date;
+                  dateValue = a.dateValue;
+                }
+
+                qty += a.usedQty || a.qty;
+                price += a.price * (a.usedQty || a.qty);
+              }
+            });
+            obj.date = date;
+            obj.dateValue = dateValue;
+            obj.price = qty ? price / qty : price;
+            obj.qty = qty;
+            return qty ? price / qty : price;
           }
         }, {
           key: "autoSizeAll",
@@ -1465,6 +1502,14 @@
               x['date'] = moment__WEBPACK_IMPORTED_MODULE_8___default()(x['date'], 'YYYY-MM-DD').format('YYYY-MM-DD');
               x['brokerage'] = '0';
               x['dateValue'] = moment__WEBPACK_IMPORTED_MODULE_8___default()(x['date'], 'YYYY-MM-DD');
+              x['l'] = {
+                count: 0,
+                reachedCount: 0
+              };
+              x['h'] = {
+                count: 0,
+                reachedCount: 0
+              };
             });
             console.log(this.form.value);
             this.rowData = [].concat(_toConsumableArray(this.rowDataOrg), _toConsumableArray(this.form.value.stockForm));
@@ -1527,7 +1572,7 @@
 
       AppComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
         selector: 'my-app',
-        template: "\n    <form [formGroup]=\"form\">\n\n      <input type=\"checkbox\" formControlName=\"published\"> Published\n      <div *ngIf=\"form.controls.published.value\">\n      <hero-search></hero-search>\n\n        <h2>stockForm</h2>\n        <button (click)=\"refreshStock()\">refresh</button>\n        <button (click)=\"downloadObjectAsJson(rowData, 'stocks')\">download json</button>\n        <button (click)=\"autoSizeAll()\">fit</button>\n        <button (click)=\"addCreds()\">Add</button>\n        <button (click)=\"updateGroupBy()\">Update groub by</button>\n\n        <div style=\"margin: 4px\" formArrayName=\"stockForm\" *ngFor=\"let creds of form.controls.stockForm?.value; let i = index\">\n          <ng-container [formGroupName]=\"i\">\n          <input placeholder=\"key\" formControlName=\"key\">\n          <input placeholder=\"name\" formControlName=\"name\">\n          <input placeholder=\"qty\" formControlName=\"qty\">\n          <input placeholder=\"price\" formControlName=\"price\">\n          <input type=\"date\" placeholder=\"date\" formControlName=\"date\">\n          <input placeholder=\"brokerage\" formControlName=\"brokerage\">\n          <select placeholder=\"source\" formControlName=\"source\">\n<option value=\"FINVASIA\">FINVASIA</option>\n<option value=\"gROWW\">gROWW</option>\n<option value=\"upstox\">upstox</option>\n</select>\n          <select placeholder=\"state\" formControlName=\"state\">\n            <option value=\"B\">B</option>\n            <option value=\"S\">S</option>\n          </select>\n          </ng-container>\n        </div>\n\n        <button (click)=\"save()\">Save</button>\n        <button (click)=\"calculateAvg()\">calculateAvg</button>\n      </div>\n      <ag-grid-angular\n    style=\" height: 500px;\"\n    [sideBar]=\"sideBar\"\n    (gridReady)=\"onGridReady($event)\"\n      [sideBar]=\"sideBar\"\n      class=\"ag-theme-alpine\"\n    [rowData]=\"rowData\"\n    [masterDetail]=\"true\"\n    [detailCellRendererParams]=\"detailCellRendererParams\"\n    [columnDefs]=\"columnDefs\"\n    [defaultColDef]=\"defaultColDef\"\n>\n</ag-grid-angular>\n      {{form.valid}}\n    </form>\n  "
+        template: "\n    <form [formGroup]=\"form\">\n\n      <input type=\"checkbox\" formControlName=\"published\"> Published\n      <div *ngIf=\"form.controls.published.value\">\n      <hero-search></hero-search>\n\n        <h2>stockForm</h2>\n        <button (click)=\"refreshStock()\">refresh</button>\n        <button (click)=\"downloadObjectAsJson(rowData, 'stocks')\">download json</button>\n        <button (click)=\"autoSizeAll()\">fit</button>\n        <button (click)=\"addCreds()\">Add</button>\n        <button (click)=\"updateGroupBy()\">Update groub by</button>\n\n        <div style=\"margin: 4px; width: auto; height: auto\" formArrayName=\"stockForm\" *ngFor=\"let creds of form.get('stockForm')['controls']; let i = index\">\n          <div [formGroupName]=\"i\">\n          <input type=\"text\" placeholder=\"key\" formControlName=\"key\" />\n          <input placeholder=\"name\" formControlName=\"name\">\n          <input placeholder=\"qty\" formControlName=\"qty\">\n          <input placeholder=\"price\" formControlName=\"price\">\n          <input type=\"date\" placeholder=\"date\" formControlName=\"date\">\n          <input placeholder=\"brokerage\" formControlName=\"brokerage\">\n          <select placeholder=\"source\" formControlName=\"source\">\n<option value=\"FINVASIA\">FINVASIA</option>\n<option value=\"gROWW\">gROWW</option>\n<option value=\"upstox\">upstox</option>\n</select>\n          <select placeholder=\"state\" formControlName=\"state\">\n            <option value=\"B\">B</option>\n            <option value=\"S\">S</option>\n          </select>\n          </div>\n        </div>\n\n        <button (click)=\"save()\">Save</button>\n        <button (click)=\"calculateAvg()\">calculateAvg</button>\n      </div>\n      <ag-grid-angular\n    style=\" height: 500px;\"\n    [sideBar]=\"sideBar\"\n    (gridReady)=\"onGridReady($event)\"\n      [sideBar]=\"sideBar\"\n      class=\"ag-theme-alpine\"\n    [rowData]=\"rowData\"\n    [masterDetail]=\"true\"\n    [detailCellRendererParams]=\"detailCellRendererParams\"\n    [columnDefs]=\"columnDefs\"\n    [defaultColDef]=\"defaultColDef\"\n>\n</ag-grid-angular>\n      {{form.valid}}\n    </form>\n  "
       })], AppComponent);
       /***/
     },
@@ -1835,12 +1880,12 @@
         }, {
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this9 = this;
+            var _this10 = this;
 
-            this.heroes = this.searchTerms.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["debounceTime"])(300), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["distinctUntilChanged"])(), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["switchMap"])(function (term) {
+            this.heroes = this.searchTerms.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["debounceTime"])(30), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["distinctUntilChanged"])(), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["switchMap"])(function (term) {
               return term // switch to new observable each time the term changes
               ? // return the http search observable
-              _this9.httpClient.get("https://www.moneycontrol.com/mccode/common/autosuggestion_solr.php?classic=true&type=1&format=json&query=".concat(term)) : // or the observable of empty heroes if there was no search term
+              _this10.httpClient.get("https://www.moneycontrol.com/mccode/common/autosuggestion_solr.php?classic=true&type=1&format=json&query=".concat(term)) : // or the observable of empty heroes if there was no search term
               Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["of"])([]);
             }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (response) {
               console.log(response, 'response');
@@ -1856,7 +1901,7 @@
           value: function gotoDetail(hero) {
             var link = ['/detail', hero.id];
             console.log(hero);
-            this.heroes = Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["of"])([]);
+            this.searchTerms.next();
             this.selectedText = hero.pdt_dis_nm; // this.heroes.next([])
           }
         }]);

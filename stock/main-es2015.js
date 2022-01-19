@@ -885,12 +885,17 @@ let AppComponent = class AppComponent {
                 (x.usedQty != 0 || x.usedQty > 0) &&
                 qty) {
                 console.log(x.usedQty, 'x.usedQty');
-                x.usedQty = x.qty - qty;
+                if (x.usedQty) {
+                    x.usedQty -= qty;
+                }
+                else {
+                    x.usedQty = x.qty - qty;
+                }
                 qty = 0;
                 console.log(x.usedQty, 'x.usedQty');
                 if (x.usedQty < 0) {
                     qty = -x.usedQty;
-                    x.usedQty = x.qty;
+                    x.usedQty = 0;
                     dateDiff = moment__WEBPACK_IMPORTED_MODULE_8___default()(sellObj.dateValue).diff(x.dateValue, 'years', true);
                     console.log(dateDiff, 'dateDiff < 0', moment__WEBPACK_IMPORTED_MODULE_8___default()(sellObj.dateValue).diff(x.dateValue, 'days', true));
                     return false;
@@ -1140,10 +1145,34 @@ let AppComponent = class AppComponent {
         let blockRow = [];
         Object.keys(block).map((key, c) => {
             let obj = Object.assign(Object.assign({}, block[key][0]), { rowData: block[key] });
+            obj.price = this.calcAvg(obj.rowData, obj);
             blockRow.push(obj);
         });
         console.log(blockRow, 'blockRow');
         this.rowData = blockRow;
+    }
+    calcAvg(arr, obj) {
+        let price = 0;
+        let qty = 0;
+        let date = arr[0].date, dateValue = arr[0].dateValue;
+        arr.forEach(a => {
+            if (a.name.includes('THOMAS')) {
+                debugger;
+            }
+            if (a.state == 'B' && (a.usedQty !== 0 || a.usedQty > 0)) {
+                if (a.dateValue.valueOf() < a.dateValue.valueOf()) {
+                    date = a.date;
+                    dateValue = a.dateValue;
+                }
+                qty += (a.usedQty || a.qty);
+                price += a.price * (a.usedQty || a.qty);
+            }
+        });
+        obj.date = date;
+        obj.dateValue = dateValue;
+        obj.price = qty ? price / qty : price;
+        obj.qty = qty;
+        return qty ? price / qty : price;
     }
     autoSizeAll(skipHeader) {
         const allColumnIds = [];
@@ -1172,6 +1201,14 @@ let AppComponent = class AppComponent {
             x['date'] = moment__WEBPACK_IMPORTED_MODULE_8___default()(x['date'], 'YYYY-MM-DD').format('YYYY-MM-DD');
             x['brokerage'] = '0';
             x['dateValue'] = moment__WEBPACK_IMPORTED_MODULE_8___default()(x['date'], 'YYYY-MM-DD');
+            x['l'] = {
+                count: 0,
+                reachedCount: 0
+            };
+            x['h'] = {
+                count: 0,
+                reachedCount: 0
+            };
         });
         console.log(this.form.value);
         this.rowData = [...this.rowDataOrg, ...this.form.value.stockForm];
@@ -1243,9 +1280,9 @@ AppComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
         <button (click)="addCreds()">Add</button>
         <button (click)="updateGroupBy()">Update groub by</button>
 
-        <div style="margin: 4px" formArrayName="stockForm" *ngFor="let creds of form.controls.stockForm?.value; let i = index">
-          <ng-container [formGroupName]="i">
-          <input placeholder="key" formControlName="key">
+        <div style="margin: 4px; width: auto; height: auto" formArrayName="stockForm" *ngFor="let creds of form.get('stockForm')['controls']; let i = index">
+          <div [formGroupName]="i">
+          <input type="text" placeholder="key" formControlName="key" />
           <input placeholder="name" formControlName="name">
           <input placeholder="qty" formControlName="qty">
           <input placeholder="price" formControlName="price">
@@ -1260,7 +1297,7 @@ AppComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
             <option value="B">B</option>
             <option value="S">S</option>
           </select>
-          </ng-container>
+          </div>
         </div>
 
         <button (click)="save()">Save</button>
@@ -1462,7 +1499,7 @@ let HeroSearchComponent = class HeroSearchComponent {
         this.searchTerms.next(term);
     }
     ngOnInit() {
-        this.heroes = this.searchTerms.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["debounceTime"])(300), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["distinctUntilChanged"])(), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["switchMap"])((term) => term // switch to new observable each time the term changes
+        this.heroes = this.searchTerms.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["debounceTime"])(30), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["distinctUntilChanged"])(), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["switchMap"])((term) => term // switch to new observable each time the term changes
             ? // return the http search observable
                 this.httpClient.get(`https://www.moneycontrol.com/mccode/common/autosuggestion_solr.php?classic=true&type=1&format=json&query=${term}`)
             : // or the observable of empty heroes if there was no search term
@@ -1478,7 +1515,7 @@ let HeroSearchComponent = class HeroSearchComponent {
     gotoDetail(hero) {
         let link = ['/detail', hero.id];
         console.log(hero);
-        this.heroes = Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["of"])([]);
+        this.searchTerms.next();
         this.selectedText = hero.pdt_dis_nm;
         // this.heroes.next([])
     }
