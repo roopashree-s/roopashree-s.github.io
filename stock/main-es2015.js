@@ -635,6 +635,7 @@ let AppComponent = class AppComponent {
             this.convertFinToLocal1();
             this.convertUpstoxToLocal();
             localStorage.setItem('data', JSON.stringify(this.rowData));
+            this.rowDataOrg = [...this.rowData];
         }
         this.getStocks();
         // console.log('this.rowData', this.rowData, this.groupBy('key', this.rowData));
@@ -723,7 +724,6 @@ let AppComponent = class AppComponent {
             this.getSrcList();
             console.log(this.stockMap, 'this.stockMap');
         }, (x) => {
-            debugger;
             console.log(x, 'error');
         });
     }
@@ -849,11 +849,13 @@ let AppComponent = class AppComponent {
                 avgPrice: 0,
                 qty: 0,
             };
+            if (x.done || x.usedQty === 0) {
+                return;
+            }
             //calculating profit
             if (x.state == 'S') {
                 profit[x.key].qty = profit[x.key].qty - x.qty;
                 // x.usedQty = x.usedQty ? x.usedQty + Number(x.qty) : Number(x.qty)
-                console.log('updateUsedQty', a, x);
                 let dateDiff = this.updateUsedQty(a, x);
                 x.profitBooked = (x.price - profit[x.key].avgPrice) * x.qty;
                 console.log(x.price, profit[x.key].avgPrice, profit[x.key].avgPrice);
@@ -864,19 +866,20 @@ let AppComponent = class AppComponent {
                 // );
             }
             else {
+                let qty = x.usedQty || x.qty;
                 profit[x.key].avgPrice =
                     (profit[x.key].qty * profit[x.key].avgPrice +
-                        Number(x.qty) * Number(x.price)) /
-                        (profit[x.key].qty + Number(x.qty)) || Number(x.price);
-                profit[x.key].qty = profit[x.key].qty + Number(x.qty);
+                        Number(qty) * Number(x.price)) /
+                        (profit[x.key].qty + Number(qty)) || Number(x.price);
+                profit[x.key].qty = profit[x.key].qty + Number(qty);
             }
         });
         console.log(profit, 'profit', a);
     }
     updateUsedQty(a, sellObj) {
         let qty = sellObj.qty;
-        if (sellObj.key == 'MARUTISUZUKI') {
-            debugger;
+        if (sellObj.done) {
+            return;
         }
         let dateDiff = '';
         a.forEach((x) => {
@@ -908,6 +911,7 @@ let AppComponent = class AppComponent {
                 }
             }
         });
+        sellObj.done = true;
         return dateDiff;
     }
     convertGrowToLocal() {
@@ -1152,22 +1156,29 @@ let AppComponent = class AppComponent {
         this.rowData = blockRow;
     }
     calcAvg(arr, obj) {
-        let price = 0;
-        let qty = 0;
-        let date = arr[0].date, dateValue = arr[0].dateValue;
+        let price = 0, count = 0;
+        let qty = 0, interestBooked = 0, profitBooked = 0;
+        let date = arr[0].date, dateValue = moment__WEBPACK_IMPORTED_MODULE_8___default()(arr[0].dateValue);
         arr.forEach(a => {
-            if (a.name.includes('THOMAS')) {
-                debugger;
-            }
             if (a.state == 'B' && (a.usedQty !== 0 || a.usedQty > 0)) {
-                if (a.dateValue.valueOf() < a.dateValue.valueOf()) {
+                console.log(moment__WEBPACK_IMPORTED_MODULE_8___default()(a.dateValue), moment__WEBPACK_IMPORTED_MODULE_8___default()(a.dateValue).valueOf());
+                if (moment__WEBPACK_IMPORTED_MODULE_8___default()(a.dateValue).valueOf() < dateValue.valueOf()) {
                     date = a.date;
                     dateValue = a.dateValue;
                 }
-                qty += (a.usedQty || a.qty);
+                qty += (a.usedQty || Number(a.qty));
                 price += a.price * (a.usedQty || a.qty);
             }
+            else if (a.state === 'S') {
+                interestBooked += Number(a.interestBooked);
+                profitBooked += Number(a.profitBooked);
+                count++;
+            }
         });
+        if (!qty) {
+            obj.interestBooked = interestBooked / count;
+            obj.profitBooked = profitBooked / count;
+        }
         obj.date = date;
         obj.dateValue = dateValue;
         obj.price = qty ? price / qty : price;
@@ -1199,7 +1210,6 @@ let AppComponent = class AppComponent {
     save() {
         this.form.value.stockForm.forEach((x) => {
             x['date'] = moment__WEBPACK_IMPORTED_MODULE_8___default()(x['date'], 'YYYY-MM-DD').format('YYYY-MM-DD');
-            x['brokerage'] = '0';
             x['dateValue'] = moment__WEBPACK_IMPORTED_MODULE_8___default()(x['date'], 'YYYY-MM-DD');
             x['l'] = {
                 count: 0,
@@ -1258,6 +1268,18 @@ let AppComponent = class AppComponent {
         this.average(a);
         this.calculateProfit(a);
     }
+    onChangeFile(file) {
+        let fileReader = new FileReader();
+        fileReader.onloadend = (x) => {
+            if (fileReader.result) {
+                let text = fileReader.result;
+                localStorage.setItem('data', text);
+                this.rowData = JSON.parse(text);
+                this.rowDataOrg = JSON.parse(text);
+            }
+        };
+        fileReader.readAsText(file[0]);
+    }
 };
 AppComponent.ctorParameters = () => [
     { type: _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"] },
@@ -1274,34 +1296,35 @@ AppComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
       <hero-search></hero-search>
 
         <h2>stockForm</h2>
-        <button (click)="refreshStock()">refresh</button>
-        <button (click)="downloadObjectAsJson(rowData, 'stocks')">download json</button>
-        <button (click)="autoSizeAll()">fit</button>
-        <button (click)="addCreds()">Add</button>
-        <button (click)="updateGroupBy()">Update groub by</button>
+        <button class="mt-2" (click)="refreshStock()">refresh</button>
+        <button class="mt-2" (click)="downloadObjectAsJson(rowData, 'stocks')">download json</button>
+        <button class="mt-2" (click)="autoSizeAll()">fit</button>
+        <button class="mt-2" (click)="addCreds()">Add</button>
+        <button class="mt-2" (click)="updateGroupBy()">Update groub by</button>
+        <input class="mt-2" type="file" (change)="onChangeFile($event.target.files)">
 
         <div style="margin: 4px; width: auto; height: auto" formArrayName="stockForm" *ngFor="let creds of form.get('stockForm')['controls']; let i = index">
           <div [formGroupName]="i">
-          <input type="text" placeholder="key" formControlName="key" />
-          <input placeholder="name" formControlName="name">
-          <input placeholder="qty" formControlName="qty">
-          <input placeholder="price" formControlName="price">
-          <input type="date" placeholder="date" formControlName="date">
-          <input placeholder="brokerage" formControlName="brokerage">
-          <select placeholder="source" formControlName="source">
+          <input class="mt-2" type="text" placeholder="key" formControlName="key" />
+          <input class="mt-2" placeholder="name" formControlName="name">
+          <input class="mt-2" placeholder="qty" formControlName="qty">
+          <input class="mt-2" placeholder="price" formControlName="price">
+          <input class="mt-2"  type="date" placeholder="date" formControlName="date">
+          <input class="mt-2" placeholder="brokerage" formControlName="brokerage">
+          <select class="mt-2"  placeholder="source" formControlName="source">
 <option value="FINVASIA">FINVASIA</option>
 <option value="gROWW">gROWW</option>
 <option value="upstox">upstox</option>
 </select>
-          <select placeholder="state" formControlName="state">
+          <select class="mt-2"  placeholder="state" formControlName="state">
             <option value="B">B</option>
             <option value="S">S</option>
           </select>
           </div>
         </div>
 
-        <button (click)="save()">Save</button>
-        <button (click)="calculateAvg()">calculateAvg</button>
+        <button class="mt-2"  (click)="save()">Save</button>
+        <button class="mt-2" (click)="calculateAvg()">calculateAvg</button>
       </div>
       <ag-grid-angular
     style=" height: 500px;"

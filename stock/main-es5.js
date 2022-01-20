@@ -828,6 +828,7 @@
             this.convertFinToLocal1();
             this.convertUpstoxToLocal();
             localStorage.setItem('data', JSON.stringify(this.rowData));
+            this.rowDataOrg = _toConsumableArray(this.rowData);
           }
 
           this.getStocks(); // console.log('this.rowData', this.rowData, this.groupBy('key', this.rowData));
@@ -943,7 +944,6 @@
 
               console.log(_this2.stockMap, 'this.stockMap');
             }, function (x) {
-              debugger;
               console.log(x, 'error');
             });
           }
@@ -1101,12 +1101,15 @@
               profit[x.key] = profit[x.key] || {
                 avgPrice: 0,
                 qty: 0
-              }; //calculating profit
+              };
+
+              if (x.done || x.usedQty === 0) {
+                return;
+              } //calculating profit
+
 
               if (x.state == 'S') {
                 profit[x.key].qty = profit[x.key].qty - x.qty; // x.usedQty = x.usedQty ? x.usedQty + Number(x.qty) : Number(x.qty)
-
-                console.log('updateUsedQty', a, x);
 
                 var dateDiff = _this6.updateUsedQty(a, x);
 
@@ -1117,8 +1120,9 @@
                 //   moment().diff(a[i - 1].dateValue, 'years', true)
                 // );
               } else {
-                profit[x.key].avgPrice = (profit[x.key].qty * profit[x.key].avgPrice + Number(x.qty) * Number(x.price)) / (profit[x.key].qty + Number(x.qty)) || Number(x.price);
-                profit[x.key].qty = profit[x.key].qty + Number(x.qty);
+                var qty = x.usedQty || x.qty;
+                profit[x.key].avgPrice = (profit[x.key].qty * profit[x.key].avgPrice + Number(qty) * Number(x.price)) / (profit[x.key].qty + Number(qty)) || Number(x.price);
+                profit[x.key].qty = profit[x.key].qty + Number(qty);
               }
             });
             console.log(profit, 'profit', a);
@@ -1128,8 +1132,8 @@
           value: function updateUsedQty(a, sellObj) {
             var qty = sellObj.qty;
 
-            if (sellObj.key == 'MARUTISUZUKI') {
-              debugger;
+            if (sellObj.done) {
+              return;
             }
 
             var dateDiff = '';
@@ -1160,6 +1164,7 @@
                 }
               }
             });
+            sellObj.done = true;
             return dateDiff;
           }
         }, {
@@ -1442,25 +1447,36 @@
         }, {
           key: "calcAvg",
           value: function calcAvg(arr, obj) {
-            var price = 0;
-            var qty = 0;
+            var price = 0,
+                count = 0;
+            var qty = 0,
+                interestBooked = 0,
+                profitBooked = 0;
             var date = arr[0].date,
-                dateValue = arr[0].dateValue;
+                dateValue = moment__WEBPACK_IMPORTED_MODULE_8___default()(arr[0].dateValue);
             arr.forEach(function (a) {
-              if (a.name.includes('THOMAS')) {
-                debugger;
-              }
-
               if (a.state == 'B' && (a.usedQty !== 0 || a.usedQty > 0)) {
-                if (a.dateValue.valueOf() < a.dateValue.valueOf()) {
+                console.log(moment__WEBPACK_IMPORTED_MODULE_8___default()(a.dateValue), moment__WEBPACK_IMPORTED_MODULE_8___default()(a.dateValue).valueOf());
+
+                if (moment__WEBPACK_IMPORTED_MODULE_8___default()(a.dateValue).valueOf() < dateValue.valueOf()) {
                   date = a.date;
                   dateValue = a.dateValue;
                 }
 
-                qty += a.usedQty || a.qty;
+                qty += a.usedQty || Number(a.qty);
                 price += a.price * (a.usedQty || a.qty);
+              } else if (a.state === 'S') {
+                interestBooked += Number(a.interestBooked);
+                profitBooked += Number(a.profitBooked);
+                count++;
               }
             });
+
+            if (!qty) {
+              obj.interestBooked = interestBooked / count;
+              obj.profitBooked = profitBooked / count;
+            }
+
             obj.date = date;
             obj.dateValue = dateValue;
             obj.price = qty ? price / qty : price;
@@ -1500,7 +1516,6 @@
           value: function save() {
             this.form.value.stockForm.forEach(function (x) {
               x['date'] = moment__WEBPACK_IMPORTED_MODULE_8___default()(x['date'], 'YYYY-MM-DD').format('YYYY-MM-DD');
-              x['brokerage'] = '0';
               x['dateValue'] = moment__WEBPACK_IMPORTED_MODULE_8___default()(x['date'], 'YYYY-MM-DD');
               x['l'] = {
                 count: 0,
@@ -1557,6 +1572,24 @@
             this.average(a);
             this.calculateProfit(a);
           }
+        }, {
+          key: "onChangeFile",
+          value: function onChangeFile(file) {
+            var _this10 = this;
+
+            var fileReader = new FileReader();
+
+            fileReader.onloadend = function (x) {
+              if (fileReader.result) {
+                var text = fileReader.result;
+                localStorage.setItem('data', text);
+                _this10.rowData = JSON.parse(text);
+                _this10.rowDataOrg = JSON.parse(text);
+              }
+            };
+
+            fileReader.readAsText(file[0]);
+          }
         }]);
 
         return AppComponent;
@@ -1572,7 +1605,7 @@
 
       AppComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
         selector: 'my-app',
-        template: "\n    <form [formGroup]=\"form\">\n\n      <input type=\"checkbox\" formControlName=\"published\"> Published\n      <div *ngIf=\"form.controls.published.value\">\n      <hero-search></hero-search>\n\n        <h2>stockForm</h2>\n        <button (click)=\"refreshStock()\">refresh</button>\n        <button (click)=\"downloadObjectAsJson(rowData, 'stocks')\">download json</button>\n        <button (click)=\"autoSizeAll()\">fit</button>\n        <button (click)=\"addCreds()\">Add</button>\n        <button (click)=\"updateGroupBy()\">Update groub by</button>\n\n        <div style=\"margin: 4px; width: auto; height: auto\" formArrayName=\"stockForm\" *ngFor=\"let creds of form.get('stockForm')['controls']; let i = index\">\n          <div [formGroupName]=\"i\">\n          <input type=\"text\" placeholder=\"key\" formControlName=\"key\" />\n          <input placeholder=\"name\" formControlName=\"name\">\n          <input placeholder=\"qty\" formControlName=\"qty\">\n          <input placeholder=\"price\" formControlName=\"price\">\n          <input type=\"date\" placeholder=\"date\" formControlName=\"date\">\n          <input placeholder=\"brokerage\" formControlName=\"brokerage\">\n          <select placeholder=\"source\" formControlName=\"source\">\n<option value=\"FINVASIA\">FINVASIA</option>\n<option value=\"gROWW\">gROWW</option>\n<option value=\"upstox\">upstox</option>\n</select>\n          <select placeholder=\"state\" formControlName=\"state\">\n            <option value=\"B\">B</option>\n            <option value=\"S\">S</option>\n          </select>\n          </div>\n        </div>\n\n        <button (click)=\"save()\">Save</button>\n        <button (click)=\"calculateAvg()\">calculateAvg</button>\n      </div>\n      <ag-grid-angular\n    style=\" height: 500px;\"\n    [sideBar]=\"sideBar\"\n    (gridReady)=\"onGridReady($event)\"\n      [sideBar]=\"sideBar\"\n      class=\"ag-theme-alpine\"\n    [rowData]=\"rowData\"\n    [masterDetail]=\"true\"\n    [detailCellRendererParams]=\"detailCellRendererParams\"\n    [columnDefs]=\"columnDefs\"\n    [defaultColDef]=\"defaultColDef\"\n>\n</ag-grid-angular>\n      {{form.valid}}\n    </form>\n  "
+        template: "\n    <form [formGroup]=\"form\">\n\n      <input type=\"checkbox\" formControlName=\"published\"> Published\n      <div *ngIf=\"form.controls.published.value\">\n      <hero-search></hero-search>\n\n        <h2>stockForm</h2>\n        <button class=\"mt-2\" (click)=\"refreshStock()\">refresh</button>\n        <button class=\"mt-2\" (click)=\"downloadObjectAsJson(rowData, 'stocks')\">download json</button>\n        <button class=\"mt-2\" (click)=\"autoSizeAll()\">fit</button>\n        <button class=\"mt-2\" (click)=\"addCreds()\">Add</button>\n        <button class=\"mt-2\" (click)=\"updateGroupBy()\">Update groub by</button>\n        <input class=\"mt-2\" type=\"file\" (change)=\"onChangeFile($event.target.files)\">\n\n        <div style=\"margin: 4px; width: auto; height: auto\" formArrayName=\"stockForm\" *ngFor=\"let creds of form.get('stockForm')['controls']; let i = index\">\n          <div [formGroupName]=\"i\">\n          <input class=\"mt-2\" type=\"text\" placeholder=\"key\" formControlName=\"key\" />\n          <input class=\"mt-2\" placeholder=\"name\" formControlName=\"name\">\n          <input class=\"mt-2\" placeholder=\"qty\" formControlName=\"qty\">\n          <input class=\"mt-2\" placeholder=\"price\" formControlName=\"price\">\n          <input class=\"mt-2\"  type=\"date\" placeholder=\"date\" formControlName=\"date\">\n          <input class=\"mt-2\" placeholder=\"brokerage\" formControlName=\"brokerage\">\n          <select class=\"mt-2\"  placeholder=\"source\" formControlName=\"source\">\n<option value=\"FINVASIA\">FINVASIA</option>\n<option value=\"gROWW\">gROWW</option>\n<option value=\"upstox\">upstox</option>\n</select>\n          <select class=\"mt-2\"  placeholder=\"state\" formControlName=\"state\">\n            <option value=\"B\">B</option>\n            <option value=\"S\">S</option>\n          </select>\n          </div>\n        </div>\n\n        <button class=\"mt-2\"  (click)=\"save()\">Save</button>\n        <button class=\"mt-2\" (click)=\"calculateAvg()\">calculateAvg</button>\n      </div>\n      <ag-grid-angular\n    style=\" height: 500px;\"\n    [sideBar]=\"sideBar\"\n    (gridReady)=\"onGridReady($event)\"\n      [sideBar]=\"sideBar\"\n      class=\"ag-theme-alpine\"\n    [rowData]=\"rowData\"\n    [masterDetail]=\"true\"\n    [detailCellRendererParams]=\"detailCellRendererParams\"\n    [columnDefs]=\"columnDefs\"\n    [defaultColDef]=\"defaultColDef\"\n>\n</ag-grid-angular>\n      {{form.valid}}\n    </form>\n  "
       })], AppComponent);
       /***/
     },
@@ -1880,12 +1913,12 @@
         }, {
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this10 = this;
+            var _this11 = this;
 
             this.heroes = this.searchTerms.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["debounceTime"])(30), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["distinctUntilChanged"])(), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["switchMap"])(function (term) {
               return term // switch to new observable each time the term changes
               ? // return the http search observable
-              _this10.httpClient.get("https://www.moneycontrol.com/mccode/common/autosuggestion_solr.php?classic=true&type=1&format=json&query=".concat(term)) : // or the observable of empty heroes if there was no search term
+              _this11.httpClient.get("https://www.moneycontrol.com/mccode/common/autosuggestion_solr.php?classic=true&type=1&format=json&query=".concat(term)) : // or the observable of empty heroes if there was no search term
               Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["of"])([]);
             }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (response) {
               console.log(response, 'response');
