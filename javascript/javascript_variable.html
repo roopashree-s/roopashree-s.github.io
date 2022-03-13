@@ -36,6 +36,7 @@
         -ms-animation: -amp-start 8s steps(1, end) 0s 1 normal both;
         animation: -amp-start 8s steps(1, end) 0s 1 normal both;
       }
+
       .theme-dark {
         /* background-color: rgba(29, 29, 31, 0.72); */
         background-color: #32323e;
@@ -46,6 +47,7 @@
         line-height: 2.2rem;
         font-family: Arial, Verdana, Tahoma;
         /* line-height: 20px; */
+        letter-spacing: 0.5px;
       }
 
       .main-contianer {
@@ -56,18 +58,42 @@
       }
 
       a {
-        color: greenyellow;
-      }
-
-      .quest {
-        color: #ff69f0;
+        color: lightgreen;
+        text-decoration: none;
       }
 
       p {
         text-align: justify;
-        margin: 8px;
+        margin: 18px 8px;
       }
 
+      h3 {
+        margin: 8px;
+      }
+code[class*=language-], pre[class*=language-] {
+    color: #adacad;
+}
+
+.quest {
+    color: #ff69f0;
+    margin-bottom: -18px;
+}
+
+
+div[id] {
+    padding-bottom: 14px;
+}
+li {
+    list-style: none;
+}
+pre[class*=language-] {
+    margin: 0.5em;
+}
+
+.mainmenu a {
+    color: #adacad;
+    text-decoration: none;
+}
       @-webkit-keyframes -amp-start {
         from {
           visibility: hidden;
@@ -230,6 +256,15 @@
       crossorigin="anonymous"
       integrity="sha256-T5QdmsCQO5z8tBAXMrCZ4f3RX8wVdiA0Fu17FGnU1vU="
     ></script> -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-T9SHENP464"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-T9SHENP464');
+    </script>
   </head>
 
   <body class="theme-dark">
