@@ -1,1 +1,637 @@
-test
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+  <meta name="description" content="Javascript introduction.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-twilight.min.css" integrity="sha512-ch9ThmrGmkVrVm9tL/puGmSfzQps4yk9LDrWuswb65ZnPOIKuYZBen1yn3ez/fEbgeBqrU/IJ443OqgallfE9Q==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" integrity="sha512-SkmBfuA2hqjzEVpmnMt/LINrjop3GKWqsuLSSB3e7iBmYK7JuWw4ldmmxwD9mdm2IRTTi0OxSAfEGvgEi0i2Kw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <meta charset="utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Tutorial</title>
+  <meta name="viewport" content="width=device-width">
+
+  <!-- <script
+    src="https://pagecdn.io/lib/ace/1.4.12/ace.min.js"
+    crossorigin="anonymous"
+    integrity="sha256-T5QdmsCQO5z8tBAXMrCZ4f3RX8wVdiA0Fu17FGnU1vU="
+  ></script> -->
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-T9SHENP464"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-T9SHENP464');
+  </script><style>
+    :root {
+      --vt-font-family-base: Arial, Verdana, Tahoma;
+      --nav-height: 55px;
+--vt-c-white: #ffffff;
+--vt-c-white-soft: #f9f9f9;
+--vt-c-white-mute: #f1f1f1;
+--vt-c-black: #1F2937;
+--vt-c-black-pure: #1F2937;
+--vt-c-black-soft: #1b2430;
+--vt-c-black-mute: #314056;
+--vt-c-indigo: #213547;
+--vt-c-indigo-soft: #476582;
+--vt-c-indigo-light: #aac8e4;
+--vt-c-gray: #8e8e8e;
+--vt-c-gray-light-1: #aeaeae;
+--vt-c-gray-light-2: #c7c7c7;
+--vt-c-gray-light-3: #d1d1d1;
+--vt-c-gray-light-4: #e5e5e5;
+--vt-c-gray-light-5: #f2f2f2;
+--vt-c-gray-dark-1: #636363;
+--vt-c-gray-dark-2: #484848;
+--vt-c-gray-dark-3: #3a3a3a;
+--vt-c-gray-dark-4: #282828;
+--vt-c-gray-dark-5: #202020;
+--vt-c-divider-light-1: rgba(60, 60, 60, .29);
+--vt-c-divider-light-2: rgba(60, 60, 60, .12);
+--vt-c-divider-dark-1: rgba(84, 84, 84, .65);
+--vt-c-divider-dark-2: rgba(84, 84, 84, .48);
+--vt-c-text-light-1: var(--vt-c-indigo);
+--vt-c-text-light-2: rgba(60, 60, 60, .7);
+--vt-c-text-light-3: rgba(60, 60, 60, .33);
+--vt-c-text-light-4: rgba(60, 60, 60, .18);
+--vt-c-text-light-code: var(--vt-c-indigo-soft);
+--vt-c-text-dark-1: rgba(255, 255, 255, .87);
+--vt-c-text-dark-2: rgba(235, 235, 235, .6);
+--vt-c-text-dark-3: rgba(235, 235, 235, .38);
+--vt-c-text-dark-4: rgba(235, 235, 235, .18);
+--vt-c-text-dark-code: var(--vt-c-indigo-light);
+--vt-c-green: #42b883;
+--vt-c-green-light: #42d392;
+--vt-c-green-lighter: #35eb9a;
+--vt-c-green-dark: #33a06f;
+--vt-c-green-darker: #155f3e;
+--vt-c-blue: #3b8eed;
+--vt-c-blue-light: #549ced;
+--vt-c-blue-lighter: #50a2ff;
+--vt-c-blue-dark: #3468a3;
+--vt-c-blue-darker: #255489;
+--vt-c-yellow: #ffc517;
+--vt-c-yellow-light: #ffe417;
+--vt-c-yellow-lighter: #ffff17;
+--vt-c-yellow-dark: #e0ad15;
+--vt-c-yellow-darker: #bc9112;
+--vt-c-red: #ed3c50;
+--vt-c-red-light: #f43771;
+--vt-c-red-lighter: #fd1d7c;
+--vt-c-red-dark: #cd2d3f;
+--vt-c-red-darker: #ab2131;
+--vt-c-purple: #de41e0;
+--vt-c-purple-light: #e936eb;
+--vt-c-purple-lighter: #f616f8;
+--vt-c-purple-dark: #823c83;
+--vt-c-purple-darker: #602960
+}
+:root {
+--vt-c-bg: var(--vt-c-white);
+--vt-c-bg-soft: var(--vt-c-white-soft);
+--vt-c-bg-mute: var(--vt-c-white-mute);
+--vt-c-divider: var(--vt-c-divider-light-1);
+--vt-c-divider-light: var(--vt-c-divider-light-2);
+--vt-c-divider-inverse: var(--vt-c-divider-dark-1);
+--vt-c-divider-inverse-light: var(--vt-c-divider-dark-2);
+--vt-c-text-1: var(--vt-c-text-light-1);
+--vt-c-text-2: var(--vt-c-text-light-2);
+--vt-c-text-3: var(--vt-c-text-light-3);
+--vt-c-text-4: var(--vt-c-text-light-4);
+--vt-c-text-code: var(--vt-c-text-light-code);
+--vt-c-text-inverse-1: var(--vt-c-text-dark-1);
+--vt-c-text-inverse-2: var(--vt-c-text-dark-2);
+--vt-c-text-inverse-3: var(--vt-c-text-dark-3);
+--vt-c-text-inverse-4: var(--vt-c-text-dark-4);
+--vt-c-brand: var(--vt-c-green);
+--vt-c-brand-light: var(--vt-c-green-light);
+--vt-c-brand-dark: var(--vt-c-green-dark);
+--vt-c-brand-highlight: var(--vt-c-brand-dark)
+}
+.dark {
+--vt-c-bg: var(--vt-c-black);
+--vt-c-bg-soft: var(--vt-c-black-soft);
+--vt-c-bg-mute: var(--vt-c-black-mute);
+--vt-c-divider: var(--vt-c-divider-dark-1);
+--vt-c-divider-light: var(--vt-c-divider-dark-2);
+--vt-c-divider-inverse: var(--vt-c-divider-light-1);
+--vt-c-divider-inverse-light: var(--vt-c-divider-light-2);
+--vt-c-text-1: var(--vt-c-text-dark-1);
+--vt-c-text-2: var(--vt-c-text-dark-2);
+--vt-c-text-3: var(--vt-c-text-dark-3);
+--vt-c-text-4: var(--vt-c-text-dark-4);
+--vt-c-text-code: var(--vt-c-text-dark-code);
+--vt-c-text-inverse-1: var(--vt-c-text-light-1);
+--vt-c-text-inverse-2: var(--vt-c-text-light-2);
+--vt-c-text-inverse-3: var(--vt-c-text-light-3);
+--vt-c-text-inverse-4: var(--vt-c-text-light-4);
+--vt-c-brand-highlight: var(--vt-c-brand-light)
+}
+  * {
+    box-sizing: border-box;
+  }
+  *:not(pre):not(code) {
+-webkit-font-smoothing:antialiased;
+-moz-osx-font-smoothing:grayscale
+}
+  pre
+{
+  max-width: 100%;
+  overflow-x: auto;
+}
+  .main {
+    display: flex;
+    /* flex-basis: 400px; */
+    flex-wrap: wrap;
+  }
+  .container {
+    display: flex;
+    flex-direction: column;
+    /* margin: 4px; */
+    padding: 4px;
+    /* width: 400px; */
+  }
+
+
+    main {
+      display: grid;
+      grid-template-areas: "left article right";
+      grid-template-columns: auto 1fr auto;
+      grid-gap: 4px;
+    }
+    .left-sidebar {
+        grid-area: left;
+        position: sticky;
+        height: 100vh;
+        top: var(--nav-height);
+      }
+    .right-sidebar {
+        grid-area: right;
+        position: sticky;
+      height: fit-content;
+      padding: 8px;
+        top: var(--nav-height);
+      }
+
+  .headline {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 4px 0;
+  }
+  .body {
+    padding: 4px;
+
+  }
+  .sub-headline {
+    background: lightgrey;
+    padding: 4px 4px 0 4px;
+  }
+  .code {
+      margin: 0
+  }
+    body {
+      display: grid;
+      grid-template-rows: var(--nav-height) 1fr 40px;
+      --tw-text-opacity: 1;
+
+
+        --tw-bg-opacity: 1;
+        background-color: rgb(31 41 55 / var(--tw-bg-opacity));
+      color: var(--vt-c-text-1);
+      font-family: var(--vt-font-family-base);
+letter-spacing: .5px;
+line-height: 24px;
+    }
+    header {
+      --vt-c-divider-light:  #484848;
+      border-bottom: 1px solid var(--vt-c-divider-light);
+      transition: border-color .5s,background-color .5s;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      background: var(--vt-c-bg);
+    }
+    #sidebar {
+      background: var(--vt-c-bg-soft);
+      z-index:3;
+    }
+   #sidebar a,
+    .right-sidebar  a {
+      color: var(--vt-c-text-2);
+      text-decoration: none;
+  }
+   .right-sidebar  a:hover,
+    #sidebar a:hover {
+      color: var(--vt-c-text-1);
+      text-decoration: none;
+     transition: color .25s;
+  }
+    #sidebar ul,
+    #sidebar li,
+    .right-sidebar  ul,
+    .right-sidebar   li {
+       list-style: none;
+        padding: 4px;
+    }
+    .link {
+      cursor: pointer;
+    }
+    .link:hover .link-text {
+color: var(--vt-c-brand-text-1);
+transition: color .25s;
+}
+.link.active{
+  font-weight: 600;
+  color: var(--vt-c-brand) !important;
+  transition: color .25s;
+}
+    .arrow {
+      height: 8px;
+      width: 8px;
+      border-right: 2px solid;
+      border-bottom: 2px solid;
+      transform: rotate(45deg);
+      display: inline-block;
+      margin-left: 2px;
+      transform: translateY(-2px) rotate(-45deg);
+      transition: transform .6s;
+    }
+    .arrow.active {
+      transform: translateY(-2px) rotate(45deg);
+
+    }
+    .hamburger {
+      display: none;
+    }
+.hamburger:hover .hamburger-top {
+top:0;
+left:0;
+transform:translate(4px)
+}
+.hamburger:hover .hamburger-middle {
+top:6;
+left:0;
+transform:translate(0)
+}
+.hamburger:hover .hamburger-bottom {
+top:12px;
+left:0;
+transform:translate(8px)
+}
+.hamburger.active .hamburger-top {
+top:6px;
+transform:translate(0) rotate(225deg)
+}
+.hamburger.active .hamburger-middle {
+top:6px;
+transform:translate(16px)
+}
+.hamburger.active .hamburger-bottom {
+top:6px;
+transform:translate(0) rotate(135deg)
+}
+.hamburger.active:hover .hamburger-top,
+.hamburger.active:hover .hamburger-middle,
+.hamburger.active:hover .hamburger-bottom {
+background-color:var(--vt-c-text-2);
+transition:top .25s,background-color .25s,transform .25s
+}
+.hamburger-container {
+position:relative;
+width:16px;
+height:14px;
+overflow:hidden
+}
+.hamburger-top,
+.hamburger-middle,
+.hamburger-bottom {
+position:absolute;
+width:16px;
+height:2px;
+background-color:var(--vt-c-text-1);
+transition:top .25s,background-color .5s,transform .25s
+}
+.hamburger-top {
+top:0;
+left:0;
+transform:translate(0)
+}
+.hamburger-middle {
+top:6px;
+left:0;
+transform:translate(8px)
+}
+.hamburger-bottom {
+top:12px;
+left:0;
+transform:translate(4px)
+}
+
+  @media only screen and (min-width:1200px) {
+    .container {
+      width: calc(100%/2);
+    }
+  }
+
+  .right-menu {
+      display: unset;
+    }
+  @media only screen and (max-width:500px) {
+    .container {
+      width: calc(100vw - 30px);
+    }
+
+      main {
+        grid-template-areas: "right" "article";
+        grid-template-columns: 1fr;
+      }
+      .left-sidebar {
+        display: none;
+        position: fixed;
+        left: 0;
+        background-color: rgb(31 41 55 / var(--tw-bg-opacity));
+      }
+    .right-sidebar {
+      position: sticky;
+      top: var(--nav-height);
+      background: var(--vt-c-bg);
+      z-index: 1;
+    }
+    .right-menu {
+      display: none;
+    }
+
+    .hamburger {
+display:inline-flex;
+justify-content:center;
+align-items:center
+}
+  }
+    .logo button {
+      border: none;
+      background: transparent;
+    }
+</style>
+</head>
+
+<body class="theme-dark" cz-shortcut-listen="true">
+  <header>
+    <nav>
+      <ul class="mainmenu" id="mainmenu">
+        <li class="logo">
+          <button onclick="toggleMenu('hamburger'); toggleSidebar('sidebar')" id="hamburger" type="button" aria-label="Mobile navigation" aria-expanded="false" class="hamburger">
+            <span class="hamburger-container" style="">
+              <span class="hamburger-top"></span>
+              <span class="hamburger-middle"></span>
+              <span class="hamburger-bottom"></span>
+            </span>
+          </button>
+          <span on="tap:sidebar-desktop.toggle" aria-label="Click to open sidebar">
+            <svg style="display: none;" viewBox="0 0 100 80" width="20" height="20" class="svg-bar">
+              <rect width="100" height="20"></rect>
+              <rect y="30" width="100" height="20"></rect>
+              <rect y="60" width="100" height="20"></rect>
+            </svg>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0" y="0" viewBox="3.300999641418457 3.492000102996826 25.397003173828125 25.014999389648438" enable-background="new 0 0 32 32" height="16" width="24" class="icon-icon-0" data-fill-palette-color="#42d392" id="icon-0">
+                <path d="M19.915 26.693h-0.716v-2.006h-6.397v2.006h-0.716c-1.002 0-1.814 0.813-1.814 1.814h11.457C21.729 27.506 20.917 26.693 19.915 26.693z" fill="#42d392" data-fill-palette-color="#42d392"></path>
+                <path d="M24.116 3.492H7.884c-2.53 0-4.583 2.052-4.583 4.583v10.884c0 2.531 2.052 4.584 4.583 4.584h16.231c2.531 0 4.583-2.053 4.583-4.584V8.075C28.698 5.544 26.647 3.492 24.116 3.492zM18.535 13.619c0-0.613 0-1.617 0-2.23v-0.918c0-0.613 0.435-0.863 0.966-0.558l0.795 0.459c0.532 0.307 1.4 0.808 1.932 1.115l0.795 0.458c0.53 0.307 0.53 0.809 0 1.115l-0.795 0.46c-0.532 0.306-1.4 0.809-1.932 1.114L19.5 15.094c-0.531 0.307-0.966 0.057-0.966-0.557V13.619zM9.603 8.775c1.09 0 1.974 0.883 1.974 1.973s-0.884 1.974-1.974 1.974c-1.089 0-1.972-0.884-1.972-1.974S8.514 8.775 9.603 8.775zM12.595 18.26H6.611v-1.91c0-1.652 1.34-2.991 2.992-2.991s2.991 1.339 2.991 2.991V18.26zM25.227 18.26h-2.09c-0.177 0.393-0.57 0.668-1.029 0.668-0.459 0-0.853-0.275-1.029-0.668h-4.349v-0.924h4.349c0.177-0.393 0.57-0.668 1.029-0.668 0.459 0 0.852 0.275 1.029 0.668h2.09V18.26z" fill="#42d392" data-fill-palette-color="#42d392"></path>
+              </svg>
+            <!-- <svg viewBox="0 0 100 60" width="40" height="40">
+            <rect width="100" height="20"></rect>
+            <rect y="40" width="100" height="20"></rect>
+          </svg> --></span><span>Web Tutorial</span>
+        </li>
+        <li class="item"><a href="/snippet/index.html">Snippet</a></li>
+        <li class="item"><a href="/javascript/index.html">JavaScript</a></li>
+        <li class="item"><a href="/about.html">About</a></li>
+        <li class="item">
+          <a tabindex="0" href="/javascript_interview.html">Interview</a>
+        </li>
+        <li class="toggle" onclick="toggleMenu()">
+          <a href="javascript:void">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="16" viewBox="0 0 24 24" class="svg-bar">
+              <path d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z"></path>
+            </svg>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <script>
+      function toggleMenu(val= "mainmenu") {
+        val = val || "mainmenu";
+        var menu = document.getElementById(val);
+        if (menu.classList.contains("active")) {
+          menu.classList.remove("active");
+        } else {
+          menu.classList.add("active");
+        }
+      }
+
+      function toggleSidebar(sidebar, val) {
+        var menu = document.getElementById(sidebar);
+        console.log(menu.style.display)
+
+        if (menu.style.display && menu.style.display !== val) {
+          menu.style.display = val || ''
+        } else {
+          menu.style.display = 'block'
+        }
+      }
+    </script>
+    <style>
+      .svg-bar {
+        fill: white;
+        margin: 0 4px;
+      }
+      /* Basic styling */
+      mainmenu * {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+
+
+      }
+      nav .mainmenu {
+        padding: 0 15px;
+      }
+      .mainmenu a {
+        color: white;
+        text-decoration: none;
+      }
+      .mainmenu {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        background: var(--vt-c-bg);
+      }
+      .logo {
+        font-size: 20px;
+        padding: 7.5px 10px 7.5px 0;
+      }
+      .item {
+        padding: 10px;
+      }
+      .item:not(.button) a:hover,
+      .item a:hover::after {
+        color: #ccc;
+      }
+      /* Mobile menu */
+      .mainmenu {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .mainmenu li a {
+        display: block;
+        /* padding: 15px 5px; */
+      }
+      .toggle {
+        order: 1;
+        font-size: 20px;
+      }
+      .item {
+        order: 3;
+        width: 100%;
+        text-align: center;
+        display: none;
+      }
+      .active .item {
+        display: block;
+      }
+
+      /* Tablet menu */
+      @media all and (min-width: 700px) {
+        .mainmenu {
+          justify-content: center;
+        }
+        .logo {
+          flex: 1;
+        }
+        .toggle {
+          flex: 1;
+          text-align: right;
+          order: 2;
+        }
+      }
+
+      .row {
+        display: flex;
+        text-align: center;
+      }
+      .row.header {
+        font-weight: bold;
+      }
+      .col-2 {
+        width: 16.66%;
+      }
+      .col-4 {
+        width: 30%;
+      }
+      .col-6 {
+        width: 50%;
+      }
+      /* Desktop menu */
+      @media all and (min-width: 960px) {
+        .mainmenu {
+          align-items: flex-start;
+          flex-wrap: nowrap;
+          background: none;
+        }
+        .logo {
+          order: 0;
+        }
+        .item {
+          order: 1;
+          position: relative;
+          display: block;
+          width: auto;
+        }
+        .toggle {
+          display: none;
+        }
+      }
+    </style>
+
+<style>
+
+  .theme-dark {
+    text-rendering: optimizeLegibility;
+    line-height: 2.2rem;
+    font-family: Arial, Verdana, Tahoma;
+  }
+
+  .main-container {
+    overflow: auto;
+  }
+
+  .quest {
+    color: #ff69f0;
+  }
+
+  p {
+    text-align: justify;
+    margin: 8px;
+  }
+</style>
+  </header>
+<main><div></div>
+<div id="sidebar" class="">
+  <nav class="amp-sidebar-toolbar-target-hidden i-amphtml-toolbar">
+<ul>
+ <li><a class="" href="/snippet/angular.html">Angular</a></li>
+ <li><a class="" href="/snippet/ngrx.html">Ngrx</a></li>
+ <li><a class="" href="/snippet/angularUnitTest.html">Angular Unit Test</a></li>
+</ul>
+</nav>
+</div>
+
+
+
+
+</main>
+<footer></footer>
+<!-- Code injected by live-server -->
+<script>
+// <![CDATA[  <-- For SVG support
+if ('WebSocket' in window) {
+  (function () {
+    function refreshCSS() {
+      var sheets = [].slice.call(document.getElementsByTagName("link"));
+      var head = document.getElementsByTagName("head")[0];
+      for (var i = 0; i < sheets.length; ++i) {
+        var elem = sheets[i];
+        var parent = elem.parentElement || head;
+        parent.removeChild(elem);
+        var rel = elem.rel;
+        if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+          var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+          elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+        }
+        parent.appendChild(elem);
+      }
+    }
+    var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+    var address = protocol + window.location.host + window.location.pathname + '/ws';
+    var socket = new WebSocket(address);
+    socket.onmessage = function (msg) {
+      if (msg.data == 'reload') window.location.reload();
+      else if (msg.data == 'refreshcss') refreshCSS();
+    };
+    if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+      console.log('Live reload enabled.');
+      sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+    }
+  })();
+}
+else {
+  console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+}
+// ]]>
+</script>
+
+
+</body></html>
